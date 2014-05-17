@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[问道]]></title>
+  <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
+  <link href="http://gagaboy.github.io/"/>
+  <updated>2014-05-17T19:15:57+08:00</updated>
+  <id>http://gagaboy.github.io/</id>
+  <author>
+    <name><![CDATA[Eric Chang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>
