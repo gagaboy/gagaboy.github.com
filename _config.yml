@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://gagaboy.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
-simple_search: https://www.google.com/search
+title: 问道
+subtitle: 架构漫漫修远兮，吾将上下而求索
+author: Eric Chang
+simple_search: http://www.google.com.hk/search
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
