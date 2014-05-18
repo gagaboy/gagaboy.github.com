@@ -4,7 +4,7 @@
   <title><![CDATA[问道]]></title>
   <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-18T19:51:37+08:00</updated>
+  <updated>2014-05-18T20:23:47+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -12,5 +12,14 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[博客开张了]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao/"/>
+    <updated>2014-05-18T19:56:48+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
 </feed>
