@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[问道]]></title>
-  <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: moqui | 问道]]></title>
+  <link href="http://gagaboy.github.io/blog/categories/moqui/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
   <updated>2014-05-20T20:40:36+08:00</updated>
   <id>http://gagaboy.github.io/</id>
@@ -45,17 +45,6 @@
 <p>moqui最新资讯：<a href="http://www.linkedin.com/groups/Moqui-Framework-4640689">http://www.linkedin.com/groups/Moqui-Framework-4640689</a></p>
 
 <p>后面逐步开展moqui的入门教程编写工作，有兴趣的欢迎联系我，因为所有资料都是E文的，与其那么多感兴趣的人一起蛋疼，不如蛋疼几个人，让其他人少疼一点。。。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一个关于MOQUI的学习博客]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao/"/>
-    <updated>2014-05-18T19:56:48+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao</id>
-    <content type="html"><![CDATA[<p>博客主要内容关于moqui框架的使用，后面会逐步推出教程以及框架解析。</p>
-
-<p>相应的ITeye上面的内容我也会迁移过来，并以此博客为主，希望大家一起交流学习共勉！！</p>
 ]]></content>
   </entry>
   
