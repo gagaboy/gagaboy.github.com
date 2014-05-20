@@ -4,7 +4,7 @@
   <title><![CDATA[问道]]></title>
   <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-18T20:23:47+08:00</updated>
+  <updated>2014-05-20T16:54:47+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -18,7 +18,11 @@
     <link href="http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao/"/>
     <updated>2014-05-18T19:56:48+08:00</updated>
     <id>http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<h2>一个关于MOQUI的学习博客</h2>
+
+<p>博客主要内容关于moqui框架的使用，后面会逐步推出教程以及框架解析。</p>
+
+<p>相应的ITeye上面的内容我也会迁移过来，并以此博客为主，希望大家一起交流学习共勉！！</p>
 ]]></content>
   </entry>
   
