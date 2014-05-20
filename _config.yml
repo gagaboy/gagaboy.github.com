@@ -4,7 +4,7 @@
 
 url: http://gagaboy.github.io
 title: 问道
-subtitle: 架构漫漫路修远，吾将上下而求索
+subtitle:  架构漫漫路修远，吾将上下而求索
 author: Eric Chang
 simple_search: http://www.google.com.hk/search
 description:
@@ -19,7 +19,7 @@ date_format: "ordinal"
 subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
-email:
+email: gagaboy@126.com
 
 # ----------------------- #
 #    Jekyll & Plugins     #
