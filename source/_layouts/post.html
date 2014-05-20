@@ -3,7 +3,20 @@ layout: default
 single: true
 ---
 
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">{% include article.html %}</article>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">{% include article.html %}
+ <footer>
+ 	<br>
+ 	<br>
+    <p>
+      {% if page.previous.url %}
+        <a class="basic-alignment left" href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">&lt;-- 上一篇：{{page.previous.title}}</a>
+      {% endif %}
+      {% if page.next.url %}
+        <a class="basic-alignment right" href="{{page.next.url}}" title="Next Post: {{page.next.title}}">下一篇：{{page.next.title}} --&gt;</a>
+      {% endif %}
+    </p>
+  </footer>
+</article>
   
   <br/>{% include post/Share.html %}
   <br/>
