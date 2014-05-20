@@ -4,7 +4,7 @@
   <title><![CDATA[Category: moqui | 问道]]></title>
   <link href="http://gagaboy.github.io/blog/categories/moqui/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-20T23:12:38+08:00</updated>
+  <updated>2014-05-20T23:45:44+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -19,6 +19,9 @@
     <updated>2014-05-20T17:06:14+08:00</updated>
     <id>http://gagaboy.github.io/blog/2014/05/20/my-words</id>
     <content type="html"><![CDATA[<p>moqui是啥，简单来说它是个框架，作者谦虚的称它是个工具集。从我的观点，moqui天生就是为了企业级应用而生的全栈式框架。可能会有很多大牛开始喷我了，你懂架构不？你知道啥啥啥技术不？？对不起，我确实是理论派转战开始搞技术的，所以我会先看你的整体思路和理念，而不是你支持restful，简单的路由转换，注入或者是MVC&hellip;对于我来说，这些都不重要。</p>
+
+<!--more-->
+
 
 <p>  鄙人认为，好的框架是啥，约定优先编码，然后就是业务高度抽象，同时有MDD的feel，能快速开发和便捷维护。这是个很虚的概念，很多牛人估计又要跳出来了，如同小日本穿着黑色风衣，戴着墨镜的怪大叔遇见口爱小MM的时候一样，嚣张的亮出一条自认为很炫的“东西”（自己博客的链接），然后大吼一声：看我的家伙多么多么牛X。。。我怎么怎么设计约定的，你们按照我的方式这么弄再那么弄，可以出来弄出来很多很多的东西。。。我的意思不是调侃这些牛人，而是大家关注点不同，框架和平台的差异，我认为你初期设想多少，你才能走多远。</p>
 
