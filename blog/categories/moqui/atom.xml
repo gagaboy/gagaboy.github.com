@@ -4,7 +4,7 @@
   <title><![CDATA[Category: moqui | 问道]]></title>
   <link href="http://gagaboy.github.io/blog/categories/moqui/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-25T15:58:08+08:00</updated>
+  <updated>2014-05-25T17:02:50+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -18,9 +18,7 @@
     <link href="http://gagaboy.github.io/blog/2014/05/25/shareddocs/"/>
     <updated>2014-05-25T15:33:04+08:00</updated>
     <id>http://gagaboy.github.io/blog/2014/05/25/shareddocs</id>
-    <content type="html"><![CDATA[<p>moqui资源分享</p>
-
-<p>来源于老戴的官网和Linkin的资源：</p>
+    <content type="html"><![CDATA[<p>来源于老戴的官网和Linkin的资源：</p>
 
 <p>（一） 首先是老戴的多年业务经验和架构分析方法的介绍，个人觉得这是个理论基础。主要是面对需求、设计分析至实现等一系列过程的方法，偏向于软件开发主管或项目经理之类的角色，当然技术人员学习也是个很好的手段。由于是英文的逐步会在博客中将其汉化，并共享出来。</p>
 

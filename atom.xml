@@ -4,7 +4,7 @@
   <title><![CDATA[问道]]></title>
   <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-25T15:58:08+08:00</updated>
+  <updated>2014-05-25T17:02:50+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -14,13 +14,26 @@
 
   
   <entry>
+    <title type="html"><![CDATA[【原创】HEMP Light 文档汉化]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/05/25/translate-hemplight/"/>
+    <updated>2014-05-25T16:58:36+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/05/25/translate-hemplight</id>
+    <content type="html"><![CDATA[<p>懒得一章章的贴了，折腾</p>
+
+<p>需要的直接点击下载看吧：
+<a href="http://gagaboy.github.io/moquiFiles/HempLight%E6%B1%89%E5%8C%96%E7%89%88%EF%BC%88Beta1%EF%BC%89.pdf" title="HempLight汉化版（Beta1）.pdf">HempLight汉化版（Beta1）.pdf</a> </p>
+
+<p> 
+后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[moqui文档资源分享]]></title>
     <link href="http://gagaboy.github.io/blog/2014/05/25/shareddocs/"/>
     <updated>2014-05-25T15:33:04+08:00</updated>
     <id>http://gagaboy.github.io/blog/2014/05/25/shareddocs</id>
-    <content type="html"><![CDATA[<p>moqui资源分享</p>
-
-<p>来源于老戴的官网和Linkin的资源：</p>
+    <content type="html"><![CDATA[<p>来源于老戴的官网和Linkin的资源：</p>
 
 <p>（一） 首先是老戴的多年业务经验和架构分析方法的介绍，个人觉得这是个理论基础。主要是面对需求、设计分析至实现等一系列过程的方法，偏向于软件开发主管或项目经理之类的角色，当然技术人员学习也是个很好的手段。由于是英文的逐步会在博客中将其汉化，并共享出来。</p>
 
