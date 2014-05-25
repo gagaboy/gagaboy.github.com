@@ -4,7 +4,7 @@
   <title><![CDATA[Category: moqui | 问道]]></title>
   <link href="http://gagaboy.github.io/blog/categories/moqui/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-25T17:02:50+08:00</updated>
+  <updated>2014-05-25T17:15:56+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[【原创】HEMP Light 文档汉化]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/05/25/translate-hemplight/"/>
+    <updated>2014-05-25T16:58:36+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/05/25/translate-hemplight</id>
+    <content type="html"><![CDATA[<p>懒得一章章的贴了，折腾</p>
+
+<p>需要的直接点击下载看吧：
+<a href="/moquiFiles/HempLight%E6%B1%89%E5%8C%96%E7%89%88%EF%BC%88Beta1%EF%BC%89.pdf" title="HempLight汉化版（Beta1）.pdf">HempLight汉化版（Beta1）.pdf</a> </p>
+
+<p> 
+后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[moqui文档资源分享]]></title>
