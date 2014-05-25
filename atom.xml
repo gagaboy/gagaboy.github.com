@@ -4,7 +4,7 @@
   <title><![CDATA[问道]]></title>
   <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-25T17:15:56+08:00</updated>
+  <updated>2014-05-25T20:30:13+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[【原创】使用Intellij IDEA 13 搭建 moqui 开发环境]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/05/25/moqui-with-intellij/"/>
+    <updated>2014-05-25T17:18:32+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/05/25/moqui-with-intellij</id>
+    <content type="html"><![CDATA[<p>都说 <strong>Intellij IDEA</strong> 是个神器，并且老戴童鞋也是用这个开发的moqui。为了方便的学习moqui，偶特地整了下这个号称最智能的IDE的环境，作为自己备忘以及其他感兴趣的童鞋们搭建环境参考（偶滴系mac，win下搭建方式差不多）。</p>
+
+<p>下面一步步的讲解下如何快速让你的开发环境和moqui融合起来。</p>
+
+<!--more-->
+
+
+<ol>
+<li><p>首先选择导入工程，选择工程目录，然后选择下图显示导入 <em>外部Gradle模块</em> ：</p>
+
+<p> <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/import.png" title="import project" alt="import project" /></p></li>
+<li><p>这里注意在mac下Intellij 13的gradle 有版本要求，至少 <strong>1.10</strong> 及以上版本：</p>
+
+<p> <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/gradleV10.png" title="gradleVersion" alt="gradleVersion" /></p></li>
+<li><p>项目结构配置：基本上不用怎么改动，Intellij 很智能的把一些问题给处理掉了。当然，你也可以自己定制下，我个人是把一些输出目录在工程里面屏蔽了：</p>
+
+<p> <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/config.png" title="config" alt="config" /></p></li>
+<li><p>然后，就是运行或者调试配置了：这个也很简单，<strong>Edit Configurations…</strong> 下添加 <em>groovy</em> 的配置，每个配置是一个运行脚本。基本上 <em>moqui</em> 只需要四个常用的（ <strong>cleanAll</strong> 、 <strong>build</strong> 、 <strong>load</strong> 、 <strong>run</strong> ）都给配上就可以了：</p>
+
+<p> <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/runConf.png" title="runConf" alt="runConf" /></p>
+
+<p> <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/idea.png" title="idea" alt="idea" /></p></li>
+<li><p>基本完成这些配置就可以了，IDE环境已搭建好了，开始你的<strong><em> moqui 之旅 </em></strong>吧&hellip;.</p></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[【原创】HEMP Light 文档汉化]]></title>
