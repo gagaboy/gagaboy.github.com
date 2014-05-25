@@ -3,7 +3,7 @@ layout: post
 title: "【原创】HEMP Light 文档汉化"
 date: 2014-05-25 16:58:36 +0800
 comments: true
-categories: 
+categories: moqui
 ---
 
 懒得一章章的贴了，折腾
