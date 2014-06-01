@@ -4,7 +4,7 @@
   <title><![CDATA[问道]]></title>
   <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-05-29T08:50:21+08:00</updated>
+  <updated>2014-06-01T13:54:51+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ 前言 ]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/06/01/moquichap1/"/>
+    <updated>2014-06-01T13:47:25+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/06/01/moquichap1</id>
+    <content type="html"><![CDATA[<p>本系列教程基于作者编写的 <em>MakingAppsWithMoqui-0.41.pdf</em> 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足不能达意，尽情各位看官谅解！！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[【原创】使用Intellij IDEA 13 搭建 moqui 开发环境]]></title>
