@@ -5,11 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title> 前言  - 问道</title>
+	<title> 【原创译文】Moqui 概览 — 前言  - 问道</title>
 	<meta name="author" content="Eric Chang">
 
 	
-	<meta name="description" content="前言 本系列教程基于作者编写的 MakingAppsWithMoqui-0.41.pdf 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足不能达意，尽情各位看官谅解！！ &lt;-- 上一篇：【原创】使用Intellij IDEA 13 &hellip;">
+	<meta name="description" content="【原创译文】Moqui 概览 — 前言 本系列教程基于作者编写的 MakingAppsWithMoqui-0.41.pdf 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足和水平较低，不能达意，尽情各位看官谅解！！ 前言 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -40,19 +40,23 @@
 	
 	<script src="/javascripts/md5.js"></script>
 	<script type="text/javascript">
-		$(function(){
+		/*$(function(){
 			$('.profilepic').append("<img src='/images/MoquiWorld.png' alt='Profile Picture' style='width: 160px;' />");
-		});
+		});*/
+		document.write("<img src='/images/MoquiWorld.png' alt='Profile Picture' style='width: 200px;' />");
+
 	</script>
 	
 </div>
 <h1><a href="/">问道</a></h1>
-<p class="subtitle">架构漫漫路修远，吾将上下而求索</p>
+<p class="subtitle">~~架构漫漫路修远，<br> 吾将上下而求索~~</p>
 
 <nav id="main-nav"><ul class="main">
     <li><a href="/">首页</a></li>
+    <li><a href="/blog/categories/moqui">Moqui 准备 (4)</a></li>
+    <li><a href="/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi">Moqui 应用开发系列【译】</a></li>
+    <li><a href="/">Moqui 架构解析（建设中...）</a></li>
     <li><a href="/blog/archives">存档</a></li>
-    <!--<li><a href="/blog/categories">分类</a></li>-->
     <li><a href="http://gagaboy.iteye.com/">关于我</a></li>
 </ul>
 </nav>
@@ -91,8 +95,35 @@
 			
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">前言</h1>
-	<div class="entry-content" itemprop="articleBody"><p>本系列教程基于作者编写的 <em>MakingAppsWithMoqui-0.41.pdf</em> 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足不能达意，尽情各位看官谅解！！</p>
+	<h1 class="title" itemprop="name">【原创译文】Moqui 概览 — 前言</h1>
+	<div class="entry-content" itemprop="articleBody"><blockquote><p>本系列教程基于作者编写的 <em>MakingAppsWithMoqui-0.41.pdf</em> 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足和水平较低，不能达意，尽情各位看官谅解！！</p></blockquote>
+
+<!--more-->
+
+
+<h1>前言</h1>
+
+<hr />
+
+<p>我不是一名专家级的架构开发者，而是和你们大家一样，只是一名职业的应用程序开发人员<em><code>（老戴好谦虚哈 @_@ ! ）</code></em>。我的职业生涯一直围绕着构建和定制化各种不同领域组织的应用系统，并帮助他们进行生产流程管理以及信息自动化管理。</p>
+
+<p>像任何一个工匠一样，一套很好的工具对于应用程序开发人员来说是十分必要的。而我自从1999年涉足商业领域开始，就在寻觅这套最好的开发工具集。但是在当时，企业级Java应用还未到成熟期，市场上也存在很多不同的工具和技术实现在不断验证和巩固一系列的规范和标准。</p>
+
+<p>这当中存在一个问题：构建一个大规模的ERP系统，需要大量的硬件资源支撑才可以运行良好，同时，大厂商的这种企业级应用服务都绑定各自不完备的规范实现，即使有配套的工具和实现技术，对于开发来说也是很难使用的，开发人员备受折磨。并且这些应用在初始化完成之后，客制化和维护也十分困难和昂贵。总之一句话，蛋疼。</p>
+
+<p>各种参照大部分标准的开源替代项目逐渐在市场上浮现出来，并与商业级的产品继续角逐。然而，这只能有助于减少授权的费用，但是对于开发和产品性能而言，帮助并不是很有效。</p>
+
+<p>当然，这里还有很大的改善空间。在2001年，我发起了一个开源项目OFBIZ（The Open For Business Project），它实现了一组自动化信息系统基础的各种行为操作。这意味着其中电子商务、ERP、CRM、MP（_制造资源计划：Manufacturing Resources Plannig）_等都是梳理过并可用的系统模块。基于我在企业级Java应用的经验和独特的想法、设计模式，我设计了一套十分特别的工具集能让人们进行开发工作。这套工具集简化了组织数据的对象映射、逻辑封装以及系统内部使用支持面向服务的设计模式，面向服务逐步变成系统间内部交互的一种规范。</p>
+
+<p>不仅仅是技术开发工具，一个好的应用开发人员还需要一个灵活可扩展、便于理解的数据模型能够定义应用开发中的数据结构和保持数据的一致性。幸运的是，在2001年我早期规划阶段，正好大概开始OFBiz前两个月，Len Silverston出版了《数据模型资源手册，卷一》和《数据模型资源手册，卷二》。这是Silverston对于之前一本同名书（Silverston,Inmon, and Graziano ，1997出版）的高度回顾和总结阐述。</p>
+
+<p>数据模型的理念和模式在上面这两卷书中有介绍，这也是OFBiz的数据模型的规范标准。这些数据模型作为规范实现，在从一个简单的电子商务应用到全功能特性的ERP和CRM系统中有很优雅的表现。并且，作为很多开源项目的基础以及扩展上，数据模型在千万个用户系统中被广泛使用。</p>
+
+<p>OFBiz项目多年来在各种领域中的广泛使用，框架已经扩展积累了很多高度抽象的业务构件。在保持框架稳定的前提下，改进的想法，一些扩展机制还有来源于外部竞争对手的比较等都现实存在。很多的想法都被需要包含在OFBiz中，但是随着开源项目的发展特别是社区用户和贡献者的分解，OFBiz逐步变的基础部分很难去改变。</p>
+
+<p>我对于框架本身有一堆很伟大的并且很关键的改进和扩展列表。随着这些列表逐渐增多，我意识到也许我需要寻求另外一种方式和新的最好工具集去开展下一个阶段，以便解决这些问题。最终结果导致了Moqui这个独立框架的诞生。同时，“地幔”业务构件能提供一种通用的开源、内部交互的应用生态系统的基础组成，它支持商业化的产品和开源一般性的业务构件彼此隔离。</p>
+
+<p>本书将帮助您开始使用Moqui框架，并提供您花费数以月计开发卓越的应用系统的一个参考。</p>
 </div>
 
 
@@ -103,6 +134,8 @@
       
         <a class="basic-alignment left" href="/blog/2014/05/25/moqui-with-intellij/" title="Previous Post: 【原创】使用Intellij IDEA 13 搭建 moqui 开发环境">&lt;-- 上一篇：【原创】使用Intellij IDEA 13 搭建 moqui 开发环境</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2014/06/01/moquichap2/" title="Next Post: 【原创译文】Moqui  概览 — 框架介绍 ">下一篇：【原创译文】Moqui  概览 — 框架介绍  --&gt;</a>
       
     </p>
   </footer>

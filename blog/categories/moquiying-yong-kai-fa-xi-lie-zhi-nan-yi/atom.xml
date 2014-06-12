@@ -4,7 +4,7 @@
   <title><![CDATA[Category: moqui应用开发系列指南（译） | 问道]]></title>
   <link href="http://gagaboy.github.io/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
-  <updated>2014-06-01T13:54:51+08:00</updated>
+  <updated>2014-06-12T23:27:00+08:00</updated>
   <id>http://gagaboy.github.io/</id>
   <author>
     <name><![CDATA[Eric Chang]]></name>
@@ -14,11 +14,249 @@
 
   
   <entry>
-    <title type="html"><![CDATA[ 前言 ]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/01/moquichap1/"/>
-    <updated>2014-06-01T13:47:25+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/01/moquichap1</id>
-    <content type="html"><![CDATA[<p>本系列教程基于作者编写的 <em>MakingAppsWithMoqui-0.41.pdf</em> 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足不能达意，尽情各位看官谅解！！</p>
+    <title type="html"><![CDATA[【原创译文】让Moqui跑起来 —  ]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap7/"/>
+    <updated>2014-06-03T09:55:21+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap7</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【原创译文】Moqui 概览 — 纵览 ]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap6/"/>
+    <updated>2014-06-03T09:55:16+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap6</id>
+    <content type="html"><![CDATA[<h2>Web浏览器请求</h2>
+
+<p>一个web浏览器请求经由Servlet容器会传递到框架层面（默认实现是内嵌了Winstone Servlet容器，同样也支持Tomcat以及其他的Java Servlet规范容器）。Servlet容器通过web.xml文件按照标准的方式在服务器上找到安装的MoquiServlet，并查找到相应的请求路径。MoquiServlet很简单，仅仅设置了一个运行时上下文，然后渲染请求的界面。</p>
+
+<!--more-->
+
+
+<p>Web应用的界面渲染源自于配置的“根”界面，然后希望获取到的目标界面都通过子界面路径的方式向下查找。除了目标界面路径，可能也同时会有一个转换名称用于跳转到目标界面。</p>
+
+<p>转换用于处理界面跳转的输入数据（而不是准备展现的数据），区别于界面上的动作，动作通常是为了准备呈现的数据（不是处理跳转的输入数据）。如果存在一个转换名称，那么这个转换对应的服务和动作就会运行，同时会反馈一个转换指定的响应（基于条件约定而不管是否存在错误），然后通常这个响应会在跳转到另一个界面进行反馈。</p>
+
+<p>当一个服务被调用（通常来源于转换或者界面动作），服务门面会按照服务定义去验证并清空输入的map，然后调用执行定义好的内部或者外部脚本，Java方法，自动或隐式的实体操作或者远程服务。</p>
+
+<p>与数据库交互的实体操作，只能通过服务进行写操作，同时任何时候都可以通过界面的动作去进行读操作（转换、界面动作、服务脚本/方法等都可以支持读操作）。</p>
+
+<p><img src="/moquiImgs/requestProcess.png" title="requestProcess" alt="requestProcess" /></p>
+
+<h2>Web服务调用</h2>
+
+<p>Web服务请求通常伴随着一个浏览器端的表单提交请求发起，并受控于界面跳转。请求过来的数据受控于跳转的动作，同时，action动作控制的响应比较特殊，需要以XML，JSON等格式进行返回。跳转/转换的默认响应需要被设置为“none”类型，这样就不会去请求渲染界面或者重定向到某个界面了。</p>
+
+<h2>邮件的接收、发送</h2>
+
+<p>接收邮件通过pollEmailServer服务（配置使用email邮件服务的实体）进行邮件的ECA规则来控制。这些规则里含有解析邮件以及格式化成有效的maps格式的信息。如果规则条件满足，就会执行规则定义的动作行为。规则能够支持你想要做的任何事情，比如在某些地方保存某些信息，在目录中添加一个用于回顾的队列，生成一个自动触发的响应等。</p>
+
+<p>发送邮件最简单的方式就是调用sendEmailTemplate服务。这个服务通过emailTemplateId查找到EmailTemplate记录，就能获取到这个待发送邮件的配置信息，包括标题、发送地址、要展示的XML界面、附件等各种其他操作。这意味着可以适用于各种邮件场景，特别是通知公告类的信息，以及系统管理的自动回复客户的服务信息等。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【原创译文】Moqui 概览 — 基本概念（3）]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap5/"/>
+    <updated>2014-06-03T09:55:00+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap5</id>
+    <content type="html"><![CDATA[<h2>开发过程</h2>
+
+<p>Moqui开发框架为了促进开发实现，采用了一些自然的概念，映射源自于设计阶段的元素，比如：界面概览和线框，页面流图，数据声明以及自动的业务过程描述。这里的每个设计阶段的构件都能够被转化为Moqui工具集中特定的实现构件。</p>
+
+<!--more-->
+
+
+<p>这种设计的构件通常是最好的，特别是在基于明确定义和组织特定的活动，例如必须支持干系人和系统之间互相影响之类的需求上。这些需求应当是清晰的，并且能按照设计进行分解以便辅助驱动设计的决策，同时，必须确保系统中所有关键的方面都被认真考虑到并能覆盖设计。</p>
+
+<p>通过这种方式，实现构件能够引用设计的内容，顺延的，设计能够引用需求的内容。伴随着自然的映射设计时的构件，就能很简单的去开发实现业务构件并能同时分配和验证它们。</p>
+
+<p>按照这种架构设计去实现构件的话，通常首先要求创建构件的这个顺序就无关紧要了。不同的人员甚至可以并行的去工作，比如定义实体和创作界面。</p>
+
+<p>对于基于web的应用系统来说，特别是那些需要个性化艺术设计的公开应用，静态构件类似如图片或者CSS样式等都需要独立于界面XML，以单独的文件进行存储。同时，这些静态构件需要按照子界面的目录结构规范去组织文件结构，并且最外层目录需要与界面名相同。在子界面的层级下，不同界面的资源很自然的可以共享。</p>
+
+<p>真实按照界面和表单XML生成的HTML页面能够被个性化定制，只需要对应每个XML元素的生成输出去重写或者添加FreeMarker的宏定义即可。当有需要时，个性化的HTML页面也是可以被包含到界面中的。框架允许这种半可视化的方式定制生成带样式和脚本的HTML页面，或者需要时直接通过自定义的HTML页面去满足需求。</p>
+
+<p>Web前端设计师能够查看真实的通过独立的CSS或者其他静态资源自动生成的HTML页面进行前端开发工作。当需要个性化定制时，前端开发人员可以先制作出HTML原型页面，然后开发人员可以通过制作模板或者定制参数匹配宏定义将定制部分融入到系统中。</p>
+
+<p>另外一种比较好的做法是，雇佣较多的高级前端工程师去完成整个系统的客制化前端HTML、样式及脚本等，前端使用某个格式的JSON数据通过HTTP协议与后端的服务接口进行交互<em><code>（注：这也是较流行的单页面或者RESTful风格的架构）</code></em>。这种方式也比较适合于手机或者桌面终端应用通过web services与服务器端进行交互。Web services你可以使用框架内置的JSON-RPC、XML-RPC或者其他的服务自动映射工具，也可以使用自定义的包装服务去调用内部的服务以支持各种web服务应用架构。</p>
+
+<p>不管怎样，对于一个给定的项目来说，你的团队应该是有分工的，各管一块。框架允许你将一个项目按照设计分割成多个构件，这样就很容易的去分配工作了，大家也可以很方便的在定义好的接口基础上并行进行开发工作。</p>
+
+<h2>开发工具</h2>
+
+<p>在需求和设计阶段，你需要一组很好用的工具来方便用户、领域专家、需求分析人员、设计人员以及开发人员进行沟通交流。这些工具应当具有以下特性：</p>
+
+<blockquote><ul>
+<li>层次化的文档结构</li>
+<li>文档间或者文档内有链接可以关联（通常是链接显示的是被关联的文档标题）</li>
+<li>文档需要支持图片等附件形式</li>
+<li>每个文档需要有完整的修订版本历史记录</li>
+<li>每个文档需要有线框的评论内容</li>
+<li>文档更新能够自动邮件通知</li>
+<li>统一库管理，能够在线访问，便于交流</li>
+</ul>
+</blockquote>
+
+<p>现实中有很多这类的工具可供选择，但是大部分的都不满足上述所有的要求，所以沟通上因此会产生诸多不便。一个很好的商业化的选择是<strong><em>Atlassian</em></strong>公司的<strong>Conﬂuence</strong>。相对很多面向大规模组织使用的产品，<strong><em>Atlassian</em></strong>提供了一种小团队能够负担的起的本地部署方案。同样开源里面也有很多的选择，包括基于Moqui和Mantle的wiki就用在了HiveMind的项目管理上。</p>
+
+<p>注意下，内容沟通工具通常会与你的代码库隔离，尽管如果你把内容管理工具和你的代码库合并，那么参与你的项目的人会比较方便的使用它。因为Moqui框架本身支持渲染wiki页面和传递二进制的附件，所以你可能会认为这是个Moqui的组件。但这里最大的问题是，除非Moqui有个很完善好用的wiki应用能够很方便的更新内容，否则这将很难去吸引技术较弱的人来参与Moqui的项目。</p>
+
+<p>对于实际的代码库也有很多的选择，但更多的会依赖于个人或者团队的倾向。Moqui本身是存放在<strong>GitHub</strong>上的，并且<strong>GitHub</strong>上的私有库的价格是能接受的（特别是些小的项目库）。如果你正好也使用<strong>GitHub</strong>，从jonesde的moqui库中切分支，在自己的私有库中维护自己的运行时目录，同时定期更新基础的主程序的代码即可。</p>
+
+<p>对于项目开发来说，即使你不使用<strong>GitHub</strong>，那么使用一个本地或者远程的git代码库也是个很好的管理代码的方式。当然，如果你倾向于使用<em>Subversion</em>或者<em>Mercurial</em>，也是无可厚非的选择。</p>
+
+<p>对于真正的开发过程来说，你也许需要一个编辑器或者开发环境支持以下类型的文件：</p>
+
+<blockquote><ul>
+<li><strong><em><code>XML</code></em></strong>（支持自动完成、验证、显示注释等）</li>
+<li><strong><em><code>Groovy</code></em></strong>（groovy脚本语法特性支持以及XML文件中的groovy脚本语法特性支持）</li>
+<li><strong><em><code>HTML，CSS和JavaScript脚本</code></em></strong></li>
+<li><strong><em><code>FreeMarker</code></em></strong>（FTL）</li>
+<li><strong><em><code>Java</code></em></strong>（可选的）</li>
+</ul>
+</blockquote>
+
+<p>我个人倾向使用的是<strong><em>JetBrains</em></strong>的IDE工具<strong>IntelliJ IDEA</strong>。社区免费版对于XML和Groovy支持性非常好。对于HTML，CSS，JavaScript以及FreeMarker支持你需要购买商业版，否则IDE只是作为简单文本编辑器支持。我就是使用了商业版完成了大部分Moqui框架的实现，包括复杂的FreeMarker宏定义模板。在购买了个人授权使用商业版后，我开发起来真的很爽，但是社区版本身就已经很强大了。</p>
+
+<p>其他流行的Java IDE比如<strong><em>Eclipse</em></strong> 和<em><strong>NetBeans</strong></em>同样也是很好的开发选择，它们提供了构建和插件功能去支持以上这些类型的文件。我个人喜欢开发工具有自动完成和其他高级的开发辅助功能，但是你如果喜欢简单的文本编辑器，那么选择自己喜欢的就好了。</p>
+
+<p>Moqui 开发框架基于Gradle（1.0及以上版本）构建。虽然包括<strong>IntelliJ IDEA</strong>在内的IDE都提供了相当好的简化命令任务的用户界面操作支持，但是我个人更喜欢命令行的方式去构建运行项目。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【原创译文】Moqui 概览 — 基本概念（2）]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap4/"/>
+    <updated>2014-06-03T09:47:10+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap4</id>
+    <content type="html"><![CDATA[<h2>运行时上下文<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h2>
+
+<p>运行时上下文是Moqui API的应用核心接口部分。运行时会独立的创建一个上下文实例去执行边缘的构件，如界面或者服务。运行时上下文，或者简写为“ec”，拥有各种门面的接口去曝露各种框架的功能和工具。</p>
+
+<!--more-->
+
+
+<p>上下文同时也维护着一个上下文的map用来呈现每个构件运行的可变空间。这个上下文map是一个map的堆栈，每个构件执行在一个干净的map中，并入栈，一旦构件结束运行即出栈。每当读取这个map栈都将从头开始向下遍历直到找到符合条件的map条目。当写这个map栈时，总是在栈的顶部去执行写操作（除非明确的指定参照根map，例如在栈底的map）。</p>
+
+<p>通过这种方式，每个构件无需担心其他构件的影响，但是构件仍然具有很容易的去访问父构件的数据（通过调用构件链的方式调用或者包含方式，能够向下找到当前的构件）。由于上下文是为了每个边缘构件的执行去创建的，所有它拥有构件运行的详实信息，如：什么时候启用，包含的用户，构件携带的信息等等。</p>
+
+<h2>构件栈<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup></h2>
+
+<p>每个构件在运行时或者包含、调用其他构件时，这个构件都会即时的被压入栈中。这个栈始终维持着当前活动的构件的轨迹，同时构件的执行信息也会被添加到一个构件使用情况的追踪历史列表中。</p>
+
+<p>当构件入栈时，每个构件都需要进行鉴权，同时构件关联的安全信息也会被追溯记录。通过这种方式，权限设计就变得很简单了，包含的构件、被调用的构件都能够继承相应的权限。这种权限继承的机制带来的好处是你只需配置并控制直接能访问的关键界面或者服务就可以了<em><code>（注：这意味着内部调用的其他界面或者逻辑服务无需关心鉴权，会直接继承调用者的权限）</code></em>。</p>
+
+<h2>管中窥豹，可见一斑<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></h2>
+
+<p>在使用Moqui框架进行开发时，你将会经常用到高度抽象的业务构件，如XML定义文件。这种设计方式是为了一方面支持很多通用的需求，同时另一方面也是为了能灵活的在任何点上都可以向下落到低层级的工具上，如模板、脚本等。在某些点上，你也许希望了解到框架内部到底在做什么，或者当你遇到了一个问题时，如果你明确知道框架内部的处理机制你能更容易定位处理问题。</p>
+
+<p>然而服务和实体定义通过代码进行控制；其他的构件比如XML动作以及XML界面和表单是通过FreeMarker模板的宏定义去转换处理成其他文本方式去渲染的。XML动作（Actions）定义会被转化为简单的Groovy脚本，然后被容器编译成class文件，并进行缓存和执行。XML界面和表单中显示的部分（widget组件）同样会通过模板被转化为特定的输出类型（html，xml，xsl-fo,csv,text等等）。</p>
+
+<p>通过这种形式，你能够很容易的看到通过模板生成的输出结果，并且通过简单的配置，你甚至可以制定你自己修改的模板或者扩展开箱即用的功能点。</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>The Execution Context <a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p>The Artifact Stack <a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+<li id="fn:3">
+<p>意译：Peeking Under the Covers <a href="#fnref:3" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【原创译文】Moqui 概览 — 基本概念（1） ]]></title>
+    <link href="http://gagaboy.github.io/blog/2014/06/02/moquichap3/"/>
+    <updated>2014-06-02T14:36:09+08:00</updated>
+    <id>http://gagaboy.github.io/blog/2014/06/02/moquichap3</id>
+    <content type="html"><![CDATA[<h2>应用构件/工件</h2>
+
+<p>Moqui开发框架的工具集都是围绕着业务构件进行组织的，同时这些业务构件允许你进行创建来体现应用系统的通用部分。在Moqui框架中，业务构件指的是你作为开发人员创建的各种XML文件甚至是脚本或者其他代码。框架中支持如下的几种类型的构件：</p>
+
+<!--more-->
+
+
+<blockquote><p><strong>实体<em><code>entities</code></em></strong> ：贯穿于整个业务系统中的关系数据模型（直接使用模型，无需复杂的对象关系映射）</p>
+
+<p><strong>界面<em><code>screens</code></em> 和 表单<em><code>forms</code></em></strong> ：用于基于web的应用界面或者其他用户接口（通用方式是基本构件描述存放在XML文件中，或者用户指定扩展存放于数据库中）</p>
+
+<p><strong>界面转换 <em><code>screen transitions</code></em></strong> : 用于配置页面到页面的流转以及设置页面跳转时，业务处理过程的必要输入</p>
+
+<p><strong>服务 <em><code>services</code></em></strong> : 远程调用的方式运行内部逻辑交互或者曝露外部的服务</p>
+
+<p><strong>ECA（事件-条件-行为<em><code>event-condition-action</code></em>）规则</strong> : 用于类似实体、服务操作以及email信息接收等系统级事件触发</p></blockquote>
+
+<p>下面给出一个表格来展示应用中通用部分以及业务构件之间的联系：</p>
+
+<table>
+<thead>
+<tr>
+<th>构件</th>
+<th>构件描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em><strong>界面screen</strong></em></td>
+<td>XML定义的界面（渲染成各种类型的文本或者用于生成其他UI界面；支持html、xml、xsl-fo、csv以及简单文本转换，开箱即用）</td>
+</tr>
+<tr>
+<td><em><strong>表单form</strong></em></td>
+<td>XML定义的表单（在界面内定义；各种开箱即用的组件widgets，并可以自定义组件或者自定义扩展已有组件）</td>
+</tr>
+<tr>
+<td><em><strong>准备展示的数据</strong></em></td>
+<td>界面动作actions（在界面内定义，可以调用外部逻辑）</td>
+</tr>
+<tr>
+<td><em><strong>页面流</strong></em></td>
+<td>带条件定义和默认响应的界面转换（在源界面内定义转换，响应目标配置为目标界面或者外部页面资源）</td>
+</tr>
+<tr>
+<td><em><strong>处理过程输入</strong></em></td>
+<td>转换动作actions（不仅可以支持一个简单的服务处理表单的公共验证等，也可以定义页面内部的动作或者外部逻辑调用）</td>
+</tr>
+<tr>
+<td><em><strong>菜单</strong></em></td>
+<td>按照子界面的层级配置定义遍历，自动生成，也可以明确配置定义菜单</td>
+</tr>
+<tr>
+<td><em><strong>内部服务</strong></em></td>
+<td>XML的服务配置方式来定义各种内部或者外部服务操作的实现</td>
+</tr>
+<tr>
+<td><em><strong>XML和JSON的RPC服务</strong></em></td>
+<td>内部服务配置<em><code>allow-remote=true</code></em> 参数，即可以通过公共的服务接口被调用，接口使用的是规范的List和Map数据接口进行映射</td>
+</tr>
+<tr>
+<td><em><strong>RESTful web服务</strong></em></td>
+<td>通过简单的转换定义来获取内部服务，支持URL路径、表单、JSON请求以及JSON或者XML响应</td>
+</tr>
+<tr>
+<td><em><strong>远程服务调用</strong></em></td>
+<td>代理方式来定义内部服务，可以采用自动的XML-RPC、JSON-RPC或者其他的映射方式，也可以使用支持RESTful的简单工具或者其他服务类型</td>
+</tr>
+<tr>
+<td><em><strong>发送邮件</strong></em></td>
+<td>在EmailTemplate中单独配置下标题，界面能直接渲染成html、简单文本的邮件格式</td>
+</tr>
+<tr>
+<td><em><strong>接收邮件</strong></em></td>
+<td>定义一个email的ECA规则用于调用一个内部服务去处理email</td>
+</tr>
+<tr>
+<td><em><strong>使用脚本、模板和JCR内容</strong></em></td>
+<td>通过资源的门面接口去访问、执行或者渲染资源</td>
+</tr>
+</tbody>
+</table>
+
 ]]></content>
   </entry>
   

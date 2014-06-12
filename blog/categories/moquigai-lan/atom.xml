@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[问道]]></title>
-  <link href="http://gagaboy.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Moqui概览 | 问道]]></title>
+  <link href="http://gagaboy.github.io/blog/categories/moquigai-lan/atom.xml" rel="self"/>
   <link href="http://gagaboy.github.io/"/>
   <updated>2014-06-12T23:27:00+08:00</updated>
   <id>http://gagaboy.github.io/</id>
@@ -12,51 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[moquiChap11]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap11/"/>
-    <updated>2014-06-03T10:05:30+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap11</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[moquiChap10]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap10/"/>
-    <updated>2014-06-03T10:01:38+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap10</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[moquiChap9]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap9/"/>
-    <updated>2014-06-03T10:00:54+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap9</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[moquiChap8]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap8/"/>
-    <updated>2014-06-03T09:59:13+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap8</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[【原创译文】让Moqui跑起来 —  ]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/03/moquichap7/"/>
-    <updated>2014-06-03T09:55:21+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/03/moquichap7</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[【原创译文】Moqui 概览 — 纵览 ]]></title>
@@ -78,7 +33,7 @@
 
 <p>与数据库交互的实体操作，只能通过服务进行写操作，同时任何时候都可以通过界面的动作去进行读操作（转换、界面动作、服务脚本/方法等都可以支持读操作）。</p>
 
-<p><img src="http://gagaboy.github.io/moquiImgs/requestProcess.png" title="requestProcess" alt="requestProcess" /></p>
+<p><img src="/moquiImgs/requestProcess.png" title="requestProcess" alt="requestProcess" /></p>
 
 <h2>Web服务调用</h2>
 
@@ -308,7 +263,7 @@
 <!--more-->
 
 
-<p><img src="http://gagaboy.github.io/images/MoquiWorld.png" title="Moqui FrameWork" alt="Moqui FrameWork" /></p>
+<p><img src="/images/MoquiWorld.png" title="Moqui FrameWork" alt="Moqui FrameWork" /></p>
 
 <p>这个生态系统的目标是为了能提供一组内部可交互并且能够与商业软件竞争的构件（在Crust外壳 中提供的插件机制）。这些构件和机制都基于一个共同的框架并具有很高的客制化的灵活性和简易性，同时，系统提供的一系列通用业务构件（数据模型和逻辑服务）使得其更加完整和完备。</p>
 
@@ -346,166 +301,6 @@
 <p>由于采用了更干净的设计、更简洁的实现，同时使用了更多2001年做OFbiz时未使用的很多更好的第三方类库，Moqui框架的核心代码只有OFBiz核心框架代码的15%左右，并提供了更多有意义的功能和更多的高级工具。</p>
 
 <p>最终，Moqui框架会在构建系统时，自动的帮您把控住一大部分很重要的核心关键部分的实现。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ 【原创译文】Moqui 概览 — 前言 ]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/06/01/moquichap1/"/>
-    <updated>2014-06-01T13:47:25+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/06/01/moquichap1</id>
-    <content type="html"><![CDATA[<blockquote><p>本系列教程基于作者编写的 <em>MakingAppsWithMoqui-0.41.pdf</em> 文稿，为了便于学习研究，特将此文加上自己的理解进行一些翻译梳理工作。对于一些专业词汇可能限于个人知识面不足和水平较低，不能达意，尽情各位看官谅解！！</p></blockquote>
-
-<!--more-->
-
-
-<h1>前言</h1>
-
-<hr />
-
-<p>我不是一名专家级的架构开发者，而是和你们大家一样，只是一名职业的应用程序开发人员<em><code>（老戴好谦虚哈 @_@ ! ）</code></em>。我的职业生涯一直围绕着构建和定制化各种不同领域组织的应用系统，并帮助他们进行生产流程管理以及信息自动化管理。</p>
-
-<p>像任何一个工匠一样，一套很好的工具对于应用程序开发人员来说是十分必要的。而我自从1999年涉足商业领域开始，就在寻觅这套最好的开发工具集。但是在当时，企业级Java应用还未到成熟期，市场上也存在很多不同的工具和技术实现在不断验证和巩固一系列的规范和标准。</p>
-
-<p>这当中存在一个问题：构建一个大规模的ERP系统，需要大量的硬件资源支撑才可以运行良好，同时，大厂商的这种企业级应用服务都绑定各自不完备的规范实现，即使有配套的工具和实现技术，对于开发来说也是很难使用的，开发人员备受折磨。并且这些应用在初始化完成之后，客制化和维护也十分困难和昂贵。总之一句话，蛋疼。</p>
-
-<p>各种参照大部分标准的开源替代项目逐渐在市场上浮现出来，并与商业级的产品继续角逐。然而，这只能有助于减少授权的费用，但是对于开发和产品性能而言，帮助并不是很有效。</p>
-
-<p>当然，这里还有很大的改善空间。在2001年，我发起了一个开源项目OFBIZ（The Open For Business Project），它实现了一组自动化信息系统基础的各种行为操作。这意味着其中电子商务、ERP、CRM、MP（_制造资源计划：Manufacturing Resources Plannig）_等都是梳理过并可用的系统模块。基于我在企业级Java应用的经验和独特的想法、设计模式，我设计了一套十分特别的工具集能让人们进行开发工作。这套工具集简化了组织数据的对象映射、逻辑封装以及系统内部使用支持面向服务的设计模式，面向服务逐步变成系统间内部交互的一种规范。</p>
-
-<p>不仅仅是技术开发工具，一个好的应用开发人员还需要一个灵活可扩展、便于理解的数据模型能够定义应用开发中的数据结构和保持数据的一致性。幸运的是，在2001年我早期规划阶段，正好大概开始OFBiz前两个月，Len Silverston出版了《数据模型资源手册，卷一》和《数据模型资源手册，卷二》。这是Silverston对于之前一本同名书（Silverston,Inmon, and Graziano ，1997出版）的高度回顾和总结阐述。</p>
-
-<p>数据模型的理念和模式在上面这两卷书中有介绍，这也是OFBiz的数据模型的规范标准。这些数据模型作为规范实现，在从一个简单的电子商务应用到全功能特性的ERP和CRM系统中有很优雅的表现。并且，作为很多开源项目的基础以及扩展上，数据模型在千万个用户系统中被广泛使用。</p>
-
-<p>OFBiz项目多年来在各种领域中的广泛使用，框架已经扩展积累了很多高度抽象的业务构件。在保持框架稳定的前提下，改进的想法，一些扩展机制还有来源于外部竞争对手的比较等都现实存在。很多的想法都被需要包含在OFBiz中，但是随着开源项目的发展特别是社区用户和贡献者的分解，OFBiz逐步变的基础部分很难去改变。</p>
-
-<p>我对于框架本身有一堆很伟大的并且很关键的改进和扩展列表。随着这些列表逐渐增多，我意识到也许我需要寻求另外一种方式和新的最好工具集去开展下一个阶段，以便解决这些问题。最终结果导致了Moqui这个独立框架的诞生。同时，“地幔”业务构件能提供一种通用的开源、内部交互的应用生态系统的基础组成，它支持商业化的产品和开源一般性的业务构件彼此隔离。</p>
-
-<p>本书将帮助您开始使用Moqui框架，并提供您花费数以月计开发卓越的应用系统的一个参考。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[【原创】使用Intellij IDEA 13 搭建 moqui 开发环境]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/05/25/moqui-with-intellij/"/>
-    <updated>2014-05-25T17:18:32+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/05/25/moqui-with-intellij</id>
-    <content type="html"><![CDATA[<p>都说 <strong>Intellij IDEA</strong> 是个神器，并且老戴童鞋也是用这个开发的moqui。为了方便的学习moqui，偶特地整了下这个号称最智能的IDE的环境，作为自己备忘以及其他感兴趣的童鞋们搭建环境参考（偶滴系mac，win下搭建方式差不多）。</p>
-
-<p>下面一步步的讲解下如何快速让你的开发环境和moqui融合起来。</p>
-
-<!--more-->
-
-
-<ol>
-<li><p>首先选择导入工程，选择工程目录，然后选择下图显示导入 <em>外部Gradle模块</em> ：<br/>
- <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/import.png" title="import project" alt="import project" /></p></li>
-<li><p>这里注意在mac下Intellij 13的gradle 有版本要求，至少 <strong>1.10</strong> 及以上版本：<br/>
- <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/gradleV10.png" title="gradleVersion" alt="gradleVersion" /></p></li>
-<li><p>项目结构配置：基本上不用怎么改动，Intellij 很智能的把一些问题给处理掉了。当然，你也可以自己定制下，我个人是把一些输出目录在工程里面屏蔽了：
- <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/config.png" title="config" alt="config" /></p></li>
-<li><p>然后，就是运行或者调试配置了：这个也很简单，<strong>Edit Configurations…</strong> 下添加 <em>groovy</em> 的配置，每个配置是一个运行脚本。基本上 <em>moqui</em> 只需要四个常用的（ <strong>cleanAll</strong> 、 <strong>build</strong> 、 <strong>load</strong> 、 <strong>run</strong> ）都给配上就可以了：</p>
-
-<p> <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/runConf.png" title="runConf" alt="runConf" />
- <img src="http://gagaboy.github.io/moquiImgs/2014-05-25-moqui-with-intellij/idea.png" title="idea" alt="idea" /></p></li>
-<li><p>基本完成这些配置就可以了，IDE环境已搭建好了，开始你的<strong><em> moqui 之旅 </em></strong>吧&hellip;.</p></li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[【原创】HEMP Light 文档汉化]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/05/25/translate-hemplight/"/>
-    <updated>2014-05-25T16:58:36+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/05/25/translate-hemplight</id>
-    <content type="html"><![CDATA[<p>懒得一章章的贴了，折腾</p>
-
-<p>需要的直接点击下载看吧：
-<a href="http://gagaboy.github.io/moquiFiles/HempLight%E6%B1%89%E5%8C%96%E7%89%88%EF%BC%88Beta1%EF%BC%89.pdf" title="HempLight汉化版（Beta1）.pdf">HempLight汉化版（Beta1）.pdf</a> </p>
-
-<p>后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[moqui文档资源分享]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/05/25/shareddocs/"/>
-    <updated>2014-05-25T15:33:04+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/05/25/shareddocs</id>
-    <content type="html"><![CDATA[<p>来源于老戴的官网和Linkin的资源：</p>
-
-<p>（一） 首先是老戴的多年业务经验和架构分析方法的介绍，个人觉得这是个理论基础。主要是面对需求、设计分析至实现等一系列过程的方法，偏向于软件开发主管或项目经理之类的角色，当然技术人员学习也是个很好的手段。由于是英文的逐步会在博客中将其汉化，并共享出来。</p>
-
-<!--more-->
-
-
-<p>这部分主要是：</p>
-
-<p><a href="http://gagaboy.github.io/moquiFiles/HempBestPractices20090620.pdf" title="HempBestPractices20090620.pdf"> HempBestPractices20090620.pdf </a></p>
-
-<p><a href="http://gagaboy.github.io/moquiFiles/HempLight20090620.pdf" title="HempLight20090620.pdf"> HempLight20090620.pdf </a></p>
-
-<p>（二） 其次是老戴关于moqui的部分开发和架构介绍，个人觉得快速入门看下IntroductionToMoquiFramework-1.0.1.pdf，然后再去系统的看下MakingAppsWithMoqui.pdf，会有个更直观全面的moqui框架的了解。</p>
-
-<p>这里有点偷懒，暂时对于MakingAppsWithMoqui.pdf做了中文单词的批注，后面会等老戴写完之后推出完整的汉化文档。</p>
-
-<p>文档如下：</p>
-
-<p><a href="http://gagaboy.github.io/moquiFiles/IntroductionToMoquiFramework-1.0.1.pdf" title="IntroductionToMoquiFramework-1.0.1.pdf">IntroductionToMoquiFramework-1.0.1.pdf</a> </p>
-
-<p><a href="http://gagaboy.github.io/moquiFiles/MakingAppsWithMoqui.pdf" title="MakingAppsWithMoqui.pdf">MakingAppsWithMoqui.pdf</a></p>
-
-<p>后面开始陆续推出汉化内容：HempLight20090620.pdf的内容，大部分已经汉化完成，在进行进一步的核对工作。由于本人经验有限，难免翻译的水平和理解有欠缺，各位看官可以结合原文进行阅读理解，后面译文只是作为参考使用，谢谢！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[moqui 入门系列 -- 前言乱喷 + 网络资源链接]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/05/20/my-words/"/>
-    <updated>2014-05-20T17:06:14+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/05/20/my-words</id>
-    <content type="html"><![CDATA[<p>moqui是啥，简单来说它是个框架，作者谦虚的称它是个工具集。从我的观点，moqui天生就是为了企业级应用而生的全栈式框架。可能会有很多大牛开始喷我了，你懂架构不？你知道啥啥啥技术不？？对不起，我确实是理论派转战开始搞技术的，所以我会先看你的整体思路和理念，而不是你支持restful，简单的路由转换，注入或者是MVC&hellip;对于我来说，这些都不重要。</p>
-
-<!--more-->
-
-
-<p>  鄙人认为，好的框架是啥，约定优先编码，然后就是业务高度抽象，同时有MDD的feel，能快速开发和便捷维护。这是个很虚的概念，很多牛人估计又要跳出来了，如同小日本穿着黑色风衣，戴着墨镜的怪大叔遇见口爱小MM的时候一样，嚣张的亮出一条自认为很炫的“东西”（自己博客的链接），然后大吼一声：看我的家伙多么多么牛X。。。我怎么怎么设计约定的，你们按照我的方式这么弄再那么弄，可以出来弄出来很多很多的东西。。。我的意思不是调侃这些牛人，而是大家关注点不同，框架和平台的差异，我认为你初期设想多少，你才能走多远。</p>
-
-<p>好吧，扯远了，延续刚才的话题：约定优先编码。很多人会以各种方式告诉我他们的约定是啥或者啥叫约定，我会给你鼓掌，然后转身就忘了。所以，我觉得：</p>
-
-<ol>
-<li>约定是经过业务经验累积和高度抽象出来的大家公认的原则。区别于一些大牛自己设想的某些规则。moqui很多的业务抽象和设计理念来源于OAGIS标准，不知道的可以去google一下（那怕那个啥大和谐它，goagent也只用它。毕竟度娘和女优程序员的差异&hellip;嘿嘿  你懂的&hellip;）moqui有个很有名的&quot;大哥&quot;，估计很多大牛都知道&mdash;OFBIZ,不知道的同样去找下google。有&quot;大哥&quot;罩着，用起来首先心理上很爽，感觉靠谱了。</li>
-<li>约定要一看即了，而无需过多的解释和培训。虽然很多时候是噱头，但是如果你看了moqui，代码结构，然后里面的内容。我觉得新手都知道这是一堆配置（其实就是代码），而且能猜出来这是做啥的。我觉得能具备一定自描述能力的代码就是好代码，moqui正是如此。</li>
-</ol>
-
-
-<p>首先，我觉得moqui更适合快速开发，同时具备一定开发能力的业务专家能通过他迅速的配置出自己的原型，表述自己的思想，但并不是说它只是个原型构建系统。至少目前它具备了：基本的ERP的开发能力（具体权限模型需完善）、ESB、多租户（想玩Saas么？？可以尝试下）、安全策略（OWASP ESAPI ）、资源管理&hellip;</p>
-
-<p>moqui的架构看我的头像，好吧，希望作者老戴不会告我侵权感觉很多人对于moqui还是云里雾里，好吧，我承认这篇不说太多moqui的东西，不然你们就不会看后面的系列了，哈哈。</p>
-
-<p>先放出些moqui相关的资料，这里也感谢群里的阿超提供的老戴的圈子地址哈。</p>
-
-<p>moqui官方地址：<a href="http://www.moqui.org/">http://www.moqui.org/</a></p>
-
-<p>moqui的源码：<a href="https://github.com/jonesde">https://github.com/jonesde</a> （还有基于moqui的地幔和ofbiz的迁移演示部分） </p>
-
-<p>作者老戴的官方网站：<a href="http://www.dejc.com/">http://www.dejc.com/</a></p>
-
-<p>moqui最新资讯：<a href="http://www.linkedin.com/groups/Moqui-Framework-4640689">http://www.linkedin.com/groups/Moqui-Framework-4640689</a></p>
-
-<p>后面逐步开展moqui的入门教程编写工作，有兴趣的欢迎联系我，因为所有资料都是E文的，与其那么多感兴趣的人一起蛋疼，不如蛋疼几个人，让其他人少疼一点。。。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一个关于MOQUI的学习博客]]></title>
-    <link href="http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao/"/>
-    <updated>2014-05-18T19:56:48+08:00</updated>
-    <id>http://gagaboy.github.io/blog/2014/05/18/bo-ke-kai-zhang-liao</id>
-    <content type="html"><![CDATA[<p>博客主要内容关于moqui框架的使用，后面会逐步推出教程以及框架解析。</p>
-
-<p>相应的ITeye上面的内容我也会迁移过来，并以此博客为主，希望大家一起交流学习共勉！！</p>
 ]]></content>
   </entry>
   

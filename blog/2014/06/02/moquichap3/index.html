@@ -5,12 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>【原创】HEMP Light 文档汉化 - 问道</title>
+	<title>【原创译文】Moqui 概览 — 基本概念（1）  - 问道</title>
 	<meta name="author" content="Eric Chang">
 
 	
-	<meta name="description" content="【原创】HEMP Light 文档汉化 懒得一章章的贴了，折腾 需要的直接点击下载看吧：
-HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉 &lt;-- 上一篇：moqui文档资源分享 下一篇：【 &hellip;">
+	<meta name="description" content="【原创译文】Moqui 概览 — 基本概念（1） 应用构件/工件 Moqui开发框架的工具集都是围绕着业务构件进行组织的，同时这些业务构件允许你进行创建来体现应用系统的通用部分。在Moqui框架中，业务构件指的是你作为开发人员创建的各种XML文件甚至是脚本或者其他代码。 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架
 
 	<link href="/atom.xml" rel="alternate" title="问道" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://gagaboy.github.io/blog/2014/05/25/translate-hemplight/">
+	<link rel="canonical" href="http://gagaboy.github.io/blog/2014/06/02/moquichap3/">
 	<link href="/images/QQ2013.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -96,13 +95,89 @@ HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架
 			
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">【原创】HEMP Light 文档汉化</h1>
-	<div class="entry-content" itemprop="articleBody"><p>懒得一章章的贴了，折腾</p>
+	<h1 class="title" itemprop="name">【原创译文】Moqui 概览 — 基本概念（1）</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>应用构件/工件</h2>
 
-<p>需要的直接点击下载看吧：
-<a href="/moquiFiles/HempLight%E6%B1%89%E5%8C%96%E7%89%88%EF%BC%88Beta1%EF%BC%89.pdf" title="HempLight汉化版（Beta1）.pdf">HempLight汉化版（Beta1）.pdf</a> </p>
+<p>Moqui开发框架的工具集都是围绕着业务构件进行组织的，同时这些业务构件允许你进行创建来体现应用系统的通用部分。在Moqui框架中，业务构件指的是你作为开发人员创建的各种XML文件甚至是脚本或者其他代码。框架中支持如下的几种类型的构件：</p>
 
-<p>后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉</p>
+<!--more-->
+
+
+<blockquote><p><strong>实体<em><code>entities</code></em></strong> ：贯穿于整个业务系统中的关系数据模型（直接使用模型，无需复杂的对象关系映射）</p>
+
+<p><strong>界面<em><code>screens</code></em> 和 表单<em><code>forms</code></em></strong> ：用于基于web的应用界面或者其他用户接口（通用方式是基本构件描述存放在XML文件中，或者用户指定扩展存放于数据库中）</p>
+
+<p><strong>界面转换 <em><code>screen transitions</code></em></strong> : 用于配置页面到页面的流转以及设置页面跳转时，业务处理过程的必要输入</p>
+
+<p><strong>服务 <em><code>services</code></em></strong> : 远程调用的方式运行内部逻辑交互或者曝露外部的服务</p>
+
+<p><strong>ECA（事件-条件-行为<em><code>event-condition-action</code></em>）规则</strong> : 用于类似实体、服务操作以及email信息接收等系统级事件触发</p></blockquote>
+
+<p>下面给出一个表格来展示应用中通用部分以及业务构件之间的联系：</p>
+
+<table>
+<thead>
+<tr>
+<th>构件</th>
+<th>构件描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em><strong>界面screen</strong></em></td>
+<td>XML定义的界面（渲染成各种类型的文本或者用于生成其他UI界面；支持html、xml、xsl-fo、csv以及简单文本转换，开箱即用）</td>
+</tr>
+<tr>
+<td><em><strong>表单form</strong></em></td>
+<td>XML定义的表单（在界面内定义；各种开箱即用的组件widgets，并可以自定义组件或者自定义扩展已有组件）</td>
+</tr>
+<tr>
+<td><em><strong>准备展示的数据</strong></em></td>
+<td>界面动作actions（在界面内定义，可以调用外部逻辑）</td>
+</tr>
+<tr>
+<td><em><strong>页面流</strong></em></td>
+<td>带条件定义和默认响应的界面转换（在源界面内定义转换，响应目标配置为目标界面或者外部页面资源）</td>
+</tr>
+<tr>
+<td><em><strong>处理过程输入</strong></em></td>
+<td>转换动作actions（不仅可以支持一个简单的服务处理表单的公共验证等，也可以定义页面内部的动作或者外部逻辑调用）</td>
+</tr>
+<tr>
+<td><em><strong>菜单</strong></em></td>
+<td>按照子界面的层级配置定义遍历，自动生成，也可以明确配置定义菜单</td>
+</tr>
+<tr>
+<td><em><strong>内部服务</strong></em></td>
+<td>XML的服务配置方式来定义各种内部或者外部服务操作的实现</td>
+</tr>
+<tr>
+<td><em><strong>XML和JSON的RPC服务</strong></em></td>
+<td>内部服务配置<em><code>allow-remote=true</code></em> 参数，即可以通过公共的服务接口被调用，接口使用的是规范的List和Map数据接口进行映射</td>
+</tr>
+<tr>
+<td><em><strong>RESTful web服务</strong></em></td>
+<td>通过简单的转换定义来获取内部服务，支持URL路径、表单、JSON请求以及JSON或者XML响应</td>
+</tr>
+<tr>
+<td><em><strong>远程服务调用</strong></em></td>
+<td>代理方式来定义内部服务，可以采用自动的XML-RPC、JSON-RPC或者其他的映射方式，也可以使用支持RESTful的简单工具或者其他服务类型</td>
+</tr>
+<tr>
+<td><em><strong>发送邮件</strong></em></td>
+<td>在EmailTemplate中单独配置下标题，界面能直接渲染成html、简单文本的邮件格式</td>
+</tr>
+<tr>
+<td><em><strong>接收邮件</strong></em></td>
+<td>定义一个email的ECA规则用于调用一个内部服务去处理email</td>
+</tr>
+<tr>
+<td><em><strong>使用脚本、模板和JCR内容</strong></em></td>
+<td>通过资源的门面接口去访问、执行或者渲染资源</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 
 
@@ -111,10 +186,10 @@ HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架
  	<br>
     <p>
       
-        <a class="basic-alignment left" href="/blog/2014/05/25/shareddocs/" title="Previous Post: moqui文档资源分享">&lt;-- 上一篇：moqui文档资源分享</a>
+        <a class="basic-alignment left" href="/blog/2014/06/01/moquichap2/" title="Previous Post: 【原创译文】Moqui  概览 — 框架介绍 ">&lt;-- 上一篇：【原创译文】Moqui  概览 — 框架介绍 </a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/05/25/moqui-with-intellij/" title="Next Post: 【原创】使用Intellij IDEA 13 搭建 moqui 开发环境">下一篇：【原创】使用Intellij IDEA 13 搭建 moqui 开发环境 --&gt;</a>
+        <a class="basic-alignment right" href="/blog/2014/06/03/moquichap4/" title="Next Post: 【原创译文】Moqui 概览 — 基本概念（2）">下一篇：【原创译文】Moqui 概览 — 基本概念（2） --&gt;</a>
       
     </p>
   </footer>

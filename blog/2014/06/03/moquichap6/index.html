@@ -5,12 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>【原创】HEMP Light 文档汉化 - 问道</title>
+	<title>【原创译文】Moqui 概览 — 纵览  - 问道</title>
 	<meta name="author" content="Eric Chang">
 
 	
-	<meta name="description" content="【原创】HEMP Light 文档汉化 懒得一章章的贴了，折腾 需要的直接点击下载看吧：
-HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉 &lt;-- 上一篇：moqui文档资源分享 下一篇：【 &hellip;">
+	<meta name="description" content="【原创译文】Moqui 概览 — 纵览 Web浏览器请求 一个web浏览器请求经由Servlet容器会传递到框架层面（默认实现是内嵌了Winstone Servlet容器，同样也支持Tomcat以及其他的Java Servlet规范容器）。Servlet容器通过web. &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架
 
 	<link href="/atom.xml" rel="alternate" title="问道" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://gagaboy.github.io/blog/2014/05/25/translate-hemplight/">
+	<link rel="canonical" href="http://gagaboy.github.io/blog/2014/06/03/moquichap6/">
 	<link href="/images/QQ2013.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -96,13 +95,33 @@ HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架
 			
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">【原创】HEMP Light 文档汉化</h1>
-	<div class="entry-content" itemprop="articleBody"><p>懒得一章章的贴了，折腾</p>
+	<h1 class="title" itemprop="name">【原创译文】Moqui 概览 — 纵览</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>Web浏览器请求</h2>
 
-<p>需要的直接点击下载看吧：
-<a href="/moquiFiles/HempLight%E6%B1%89%E5%8C%96%E7%89%88%EF%BC%88Beta1%EF%BC%89.pdf" title="HempLight汉化版（Beta1）.pdf">HempLight汉化版（Beta1）.pdf</a> </p>
+<p>一个web浏览器请求经由Servlet容器会传递到框架层面（默认实现是内嵌了Winstone Servlet容器，同样也支持Tomcat以及其他的Java Servlet规范容器）。Servlet容器通过web.xml文件按照标准的方式在服务器上找到安装的MoquiServlet，并查找到相应的请求路径。MoquiServlet很简单，仅仅设置了一个运行时上下文，然后渲染请求的界面。</p>
 
-<p>后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉</p>
+<!--more-->
+
+
+<p>Web应用的界面渲染源自于配置的“根”界面，然后希望获取到的目标界面都通过子界面路径的方式向下查找。除了目标界面路径，可能也同时会有一个转换名称用于跳转到目标界面。</p>
+
+<p>转换用于处理界面跳转的输入数据（而不是准备展现的数据），区别于界面上的动作，动作通常是为了准备呈现的数据（不是处理跳转的输入数据）。如果存在一个转换名称，那么这个转换对应的服务和动作就会运行，同时会反馈一个转换指定的响应（基于条件约定而不管是否存在错误），然后通常这个响应会在跳转到另一个界面进行反馈。</p>
+
+<p>当一个服务被调用（通常来源于转换或者界面动作），服务门面会按照服务定义去验证并清空输入的map，然后调用执行定义好的内部或者外部脚本，Java方法，自动或隐式的实体操作或者远程服务。</p>
+
+<p>与数据库交互的实体操作，只能通过服务进行写操作，同时任何时候都可以通过界面的动作去进行读操作（转换、界面动作、服务脚本/方法等都可以支持读操作）。</p>
+
+<p><img src="/moquiImgs/requestProcess.png" title="requestProcess" alt="requestProcess" /></p>
+
+<h2>Web服务调用</h2>
+
+<p>Web服务请求通常伴随着一个浏览器端的表单提交请求发起，并受控于界面跳转。请求过来的数据受控于跳转的动作，同时，action动作控制的响应比较特殊，需要以XML，JSON等格式进行返回。跳转/转换的默认响应需要被设置为“none”类型，这样就不会去请求渲染界面或者重定向到某个界面了。</p>
+
+<h2>邮件的接收、发送</h2>
+
+<p>接收邮件通过pollEmailServer服务（配置使用email邮件服务的实体）进行邮件的ECA规则来控制。这些规则里含有解析邮件以及格式化成有效的maps格式的信息。如果规则条件满足，就会执行规则定义的动作行为。规则能够支持你想要做的任何事情，比如在某些地方保存某些信息，在目录中添加一个用于回顾的队列，生成一个自动触发的响应等。</p>
+
+<p>发送邮件最简单的方式就是调用sendEmailTemplate服务。这个服务通过emailTemplateId查找到EmailTemplate记录，就能获取到这个待发送邮件的配置信息，包括标题、发送地址、要展示的XML界面、附件等各种其他操作。这意味着可以适用于各种邮件场景，特别是通知公告类的信息，以及系统管理的自动回复客户的服务信息等。</p>
 </div>
 
 
@@ -111,10 +130,10 @@ HempLight汉化版（Beta1）.pdf  后面可能优先先写教程和moqui框架
  	<br>
     <p>
       
-        <a class="basic-alignment left" href="/blog/2014/05/25/shareddocs/" title="Previous Post: moqui文档资源分享">&lt;-- 上一篇：moqui文档资源分享</a>
+        <a class="basic-alignment left" href="/blog/2014/06/03/moquichap5/" title="Previous Post: 【原创译文】Moqui 概览 — 基本概念（3）">&lt;-- 上一篇：【原创译文】Moqui 概览 — 基本概念（3）</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/05/25/moqui-with-intellij/" title="Next Post: 【原创】使用Intellij IDEA 13 搭建 moqui 开发环境">下一篇：【原创】使用Intellij IDEA 13 搭建 moqui 开发环境 --&gt;</a>
+        <a class="basic-alignment right" href="/blog/2014/06/03/moquichap7/" title="Next Post: 【原创译文】让Moqui跑起来 —  ">下一篇：【原创译文】让Moqui跑起来 —   --&gt;</a>
       
     </p>
   </footer>
