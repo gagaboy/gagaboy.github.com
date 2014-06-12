@@ -11,7 +11,6 @@ categories: moqui
 需要的直接点击下载看吧：
 [HempLight汉化版（Beta1）.pdf][1] 
 
- 
 后面可能优先先写教程和moqui框架分析之类的学习分享文档吧，逐步再去把HEMP Best汉化掉
 
 

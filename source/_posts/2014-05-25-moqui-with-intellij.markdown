@@ -14,22 +14,18 @@ categories: moqui
 <!--more-->
 
 1. 首先选择导入工程，选择工程目录，然后选择下图显示导入 _外部Gradle模块_ ：  
-	   
 	![import project][image-1]
 
 2. 这里注意在mac下Intellij 13的gradle 有版本要求，至少 **1.10** 及以上版本：  
-	   
 	![gradleVersion][image-2]
 
 
 3. 项目结构配置：基本上不用怎么改动，Intellij 很智能的把一些问题给处理掉了。当然，你也可以自己定制下，我个人是把一些输出目录在工程里面屏蔽了：
-	   
 	![config][image-3]
 
 4. 然后，就是运行或者调试配置了：这个也很简单，**Edit Configurations…** 下添加 _groovy_ 的配置，每个配置是一个运行脚本。基本上 _moqui_ 只需要四个常用的（ **cleanAll** 、 **build** 、 **load** 、 **run** ）都给配上就可以了：
 
 	![runConf][image-4]
-	  
 	![idea][image-5]
 
 5. 基本完成这些配置就可以了，IDE环境已搭建好了，开始你的**_ moqui 之旅 _**吧....

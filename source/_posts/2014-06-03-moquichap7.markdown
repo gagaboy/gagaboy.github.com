@@ -1,0 +1,7 @@
+---
+layout: post
+title: "【原创译文】让Moqui跑起来 —  "
+date: 2014-06-03 09:55:21 +0800
+comments: true
+categories: moqui应用开发系列指南（译）  让Moqui跑起来
+---
