@@ -1,7 +1,129 @@
 ---
 layout: post
-title: "【原创译文】让Moqui跑起来 —  "
+title: "【原创译文】运行Moqui  "
 date: 2014-06-03 09:55:21 +0800
 comments: true
-categories: moqui应用开发系列指南（译）  让Moqui跑起来
+categories: moqui应用开发系列指南（译）  运行Moqui
 ---
+
+## 下载Moqui以及必备软件
+
+Moqui框架默认的配置软件只需要Java的JDK 6及以后版本（推荐JDK 7）。源码构建编译框架需要Gradle 1.6及以后版本。
+
+你可以从SourceForge下载Moqui框架：
+  
+https://sourceforge.net/projects/moqui/files/
+
+<!--more-->
+
+选择最新版本的目录，然后任意选择二进制或者源码发布包。框架的二进制发布包以“moqui-\<版本号\>.zip”命名，源码包以“moqui-\<版本号\>-src.zip”命名。
+
+Moqui框架的最新源码可以通过GitHub进行下载和在线预览，地址为：
+  
+[https://github.com/jonesde/moqui][1]
+
+同样的业务地幔构件的GitHub最新代码地址为：
+  
+[https://github.com/jonesde/mantle][2]
+
+虽然你可以单独的从GitHub上下载Mantle 地幔构件，但是在SourceForge上也有一个内嵌Moqui框架环境的Mantle整包。
+
+## 运行时目录以及Moqui的XML配置文件
+Moqui框架部署运行主要有三个核心部分：
+
+> - 可执行的WAR包文件（详细见下）
+> - 运行时目录
+> - Moqui配置文件（XML格式）
+
+不管你怎么使用这个可执行的WAR文件，你必须拥有一个运行时的目录，同时你也许会重写Moqui默认配置文件（_`MoquiDefaultConf.xml`_文件）里的配置信息，例如在运行时目录或者conf目录中的_`MoquiProductionConf.xml`_文件里面重写。
+
+运行时目录主要放置的是你想要加载的组件、应用系统的入口文件（界面入口文件）以及配置文件。同时，框架会在这个目录下存放日志文件，Derby 数据库文件（如果你使用Derby数据库的话）等。也许你最终是要在自己的代码库里面创建自己的运行时目录，你可以把默认的运行时目录作为你的工程的起始点。
+运行的时候，需要指定下如下两个属性：
+
+属性|属性说明
+---|---
+_** moqui.runtime **_ |指定运行时目录（如果存在runtime的子目录，默认配置为“./runtime”;如果不存在，则配置为“.”）
+_** moqui.conf **_ |指定Moqui的运行时配置文件（类似上面配置，使用URL或者路径方式配置）
+
+这里有两种方式去指定这两个属性：
+> - 通过编译路径下的_` MoquiInit.properties`_ 文件
+> - 在命令行通过系统属性去指定（使用java -D 参数）
+
+## 可执行的WAR文件
+耶，是的：就是一个可以执行的WAR文件。你主要做的就是下面这些事情（通过简单的命令去按需展示和修改）：
+
+|命令说明        |命令示例
+| ------------- |:-------------:|  
+|_**加载数据**_ |$ java -jar moqui-\<version\>.war -load
+|_**运行内置的web服务**_ |$ java -jar moqui-\<version\>.war
+|_** WAR包形式部署（Tomcat等）**_ |$ cp moqui-\<version\>.war ../tomcat/webapps
+|_** 显示配置和帮助信息）**_ |$ java -jar moqui-\<version\>.war -help
+
+当运行数据加载器时（使用 -load 参数），以下的附加参数都是可用的：
+
+| 附加参数             | 使用说明           
+| -------------------- |:-------------:| 
+| _**-types=\<type\>[,\<type\>]**_| 加载指定的数据类型，适配entity-facade-xml.@type属性（可以是任意的数据，通常为：种子数据，种子初始化数据，样例数据等）
+| _**-location=\<location\> **_ | 加载指定路径下的单个数据文件  
+| _**-timeout=\<seconds\> **_ | 每个文件加载事务的超时时间，默认为600秒（10分钟）
+| _**-dummy-fks **_ 	| 使用虚拟外键，规避引用完整性错误
+| _**-use-try-insert **_ | 尝试插入、更新操作来替代优先检查数据记录的异常校验
+| _**-tenantId=\<tenantId\> **_ | 加载指定租户ID的数据
+注意下，如果命令中没有_-types_ 或者 _-location_ 参数，将会加载所有已知类型的数据文件。
+
+上面显示的运行时配置moqui.runtime 和moqui.conf 属性的例子来源于编译路径下的MoquiInit.properties文件。通过命令行来指定这些参数的例子如下：
+
+`$ java –D moqui.conf=conf/MoquiStagingConf.xml -jar moqui-<version>.war`
+
+注意：moqui.conf参数的路径关联的是moqui.runtime的目录，或者换句话说，指定的是相应运行时目录下的配置文件。
+
+当运行内嵌的web服务（除了使用_-load_和_-help_参数）使用的是Winstone Servlet容器。完整的Winstone可用参数列表，请参见： 
+   
+http://winstone.sourceforge.net/#commandLine
+
+为了方便使用，此处罗列下常用的Winstone参数：
+
+| 参数             | 参数说明           
+| -------------------- |:-------------:| 
+| _** --httpPort**_ | 设置http的监听端口。-1表示禁用，默认为8080
+| _** --httpListenAddress **_ | 设置http的监听地址。默认为所有接口
+| _** --httpsPort **_ | 设置https的监听端口。-1表示禁用，默认禁用
+| _** --ajp13Port **_ | 设置ajp13的监听端口。-1表示禁用，默认为8009
+| _** --controlPort **_ | 设置关闭/控制的端口。-1表示禁用，默认禁用
+
+
+## 在WAR文件中内嵌运行时目录
+Moqui框架能够运行加载一个外部的运行时目录（独立于WAR文件之外），也支持运行时目录打包在WAR文件内部的方式。内嵌的方式特别适用于类似Amazon ElasticBeanstalk这种WAR部署方式的容器。创建一个内嵌运行时目录的WAR文件步骤如下：
+
+> 1.	在运行时目录下添加必须的组件以及其他的资源文件
+> 2.	按照需要调整 `${moqui.home}/MoquiInit.properties` 文件
+> 3.	必要时调整Moqui的配置文件（`runtime/conf/Moqui*Conf.xml`）
+> 4.	基于moqui.war文件、你的运行时目录的所有文件以及`MoquiInit.properties`配置文件，打一个完整WAR包的方式为以下任意一种：
+ 
+> > - `$ gradle addRuntime`
+ 
+> > - `$ ant add-runtime`
+
+> 5.	拷贝创建好的WAR文件（`moqui-plus-runtime.war`）到部署的目标位置
+> 6.	运行服务（或者重启/刷新去自动更新运行的WAR）
+
+最终的WAR文件的根目录下就是运行时目录（和WEB-INF目录同级），并且所有的JAR文件都在WEB-INF/lib 目录下。
+
+## 编译Moqui框架
+Moqui框架使用Gradle去编译源码。虽然有各种用户自定义的能自动处理常用的构建任务，但是最常用的还是Gradle自带的构建编译任务。框架内部还有一个Ant的构建编译文件，但是这个文件内只是一些常用任务，不包含编译源码的任务。
+
+|任务说明        |Gradle命令        |Ant命令
+| - |:-------------:|:-------------:|
+|_** 编译JAR，WAR文件**_ | $ gradle build |   
+|_** 加载所有的数据**_ | $ gradle load | $ ant load
+|_** 运行WAR内的服务**_ | $ gradle run | $ ant run
+|_** 清除JAR，WAR文件**_ | $ gradle clean |  
+|_** 清空所有的编译文件和运行时创建的文件（日志、数据库文件等）**_ | $ gradle cleanAll |  
+
+注意在Gradle里面，加载（load）和运行（run）任务都依赖于构建（build）任务。由于这种依赖存在，最简单的方式去在一个流行的数据库上创建一个新的开发环境可以通过执行这个命令： _`$ gradle load run`_
+它将会创建war文件，运行数据加载器，然后启动服务。停止服务只需要键入**`<ctrl-c>`**（或者你自定义的快捷方式）。
+
+
+
+[1]:	https://github.com/jonesde/moqui "moqui源码"
+[2]:	https://github.com/jonesde/mantle "mantle源码"

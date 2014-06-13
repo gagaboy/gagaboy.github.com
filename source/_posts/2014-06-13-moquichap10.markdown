@@ -1,0 +1,87 @@
+---
+layout: post
+title: "【原创译文】创建你的第一个组件（3）"
+date: 2014-06-13 22:10:03 +0800
+comments: true
+categories:  moqui应用开发系列指南（译）  创建首个组件
+---
+## 第三步
+### 自定义新增服务
+上面的例子里，createTutorial转换使用了隐式的自动实体服务create#Tutorial。我们来看下如何手动的定义和实现一个服务。
+
+首先定义一个服务使用默认的自动实体增删改查（**`CrUD`**）实现。将服务定义XML文件放在下面的位置：
+*`runtime/component/tutorial/service/tutorial/TutorialServices.xml`*	
+<!--more-->
+
+内容如下：
+```xml 标准的服务定义
+<services>
+	<service verb="create" noun="Tutorial" type="entity-auto">
+		<in-parameters>
+			<auto-parameters include="all"/>
+		</in-parameters>
+		<out-parameters>
+			<auto-parameters include="pk" required="true"/>
+        </out-parameters>
+    </service>
+</services>
+```
+
+这个服务将允许Tutorial实体的所有字段传入，并总是返回主键字段（tutorialId）。这个服务定义中我们使用了基于实体的*`auto-parameters`*元素，这样如果我们新增了实体字段的话，它们将自动会体现在这个服务处理中。
+现在，我们修改下这个服务定义来添加一个内联的实现。注意下服务中的**type**属性已经发生了变化，并且新增了一个actions元素。
+
+```xml 指定主键规则的服务定义
+<service verb="create" noun="Tutorial" type="inline">
+	<in-parameters>
+		<auto-parameters include="all"/>
+	</in-parameters>
+	<out-parameters>
+     	<auto-parameters include="pk" required="true"/>
+    </out-parameters>
+    <actions>
+		<entity-make-value entity-name="Tutorial" value-field="tutorial"/>
+		<entity-set value-field="tutorial" include="all"/>
+		<if condition="!tutorial.tutorialId">
+			<entity-sequenced-id-primary value-field="tutorial"/>
+		</if>
+		<entity-create value-field="tutorial"/>
+	</actions>
+</service>
+```
+
+现在只需改变transition指向这个服务既可以调用了：
+
+```xml 切换自定义的服务
+<transition name="createTutorial">
+	<service-call name="tutorial.TutorialServices.create#Tutorial"/>
+	<default-response url="."/>
+</transition>
+```
+
+注意下这个服务名称定义很像一个标准的`Java class`的命名。它有一个“包名”，本例中是在component/service目录下的"tutorial"目录（也许是以点号分割的多重目录结构）的目录名。然后是一个点号以及类名的等价物，本例中“TutorialServices”就是服务的XML文件的名称，但是没有.xml后缀。这之后又是一个点号，然后是服务的动词和名词操作，以#符号分割。
+
+### Groovy服务
+如果你想使用Groovy（或者框架支持的其他脚本语言）而不用内联的XML动作去实现服务，怎么做呢？这种情况服务定义像这样：
+
+```xml Groovy服务定义
+<service verb="create" noun="Tutorial" type="script"
+        location="component://tutorial/script/tutorial/createTutorial.groovy">
+	<in-parameters>
+		<auto-parameters include="all"/>
+	</in-parameters>
+    <out-parameters>
+        <auto-parameters include="pk" required="true"/>
+    </out-parameters>
+</service>
+```
+
+注意这里服务的type属性已经变为"script"，并且现在有个location属性去指定脚本的位置。	
+下面是这个Groovy脚本的内容：
+```groovy Groovy脚本
+EntityValue tutorial = ec.entity.makeValue("Tutorial")
+tutorial.setAll(context)
+if (!tutorial.tutorialId) 
+	tutorial.setSequencedIdPrimary()
+tutorial.create()
+```
+当你使用Groovy或者其他语言时，你将会用到基于可执行上下文（**`ExecutionContext class`**）这个类去调用Moqui的Java API,通常这个类在脚本里会用"**ec**"这个名称。更多的API详情请看**[Java API文档](http://www.moqui.org/javadoc/index.html)**，并查询文档中**[ExecutionContext](http://www.moqui.org/javadoc/org/moqui/context/ExecutionContext.html)**这个类，这个类关联了很多核心的API接口。

@@ -1,7 +1,154 @@
 ---
 layout: post
-title: "moquiChap8"
+title: "【原创译文】创建你的第一个组件（1） "
 date: 2014-06-03 09:59:13 +0800
 comments: true
-categories: 
+categories: moqui应用开发系列指南（译）  创建首个组件
 ---
+## 概要
+
+本章是篇教你一步步创建并运行你自己的Moqui组件的向导，包含了人机交互界面，业务逻辑以及数据库交互。
+
+- 第一步：以创建一个“Hello world！”的界面开始你的第一个组件
+
+- 第二步：延续上步，你将会定义一个自己的实体（数据库表），然后添加表单去查询和创建实体的记录
+
+- 第三步：创建一些自定义的业务逻辑，而不使用框架自带的默认基于实体定义的CrUD逻辑操作
+
+<!--more-->
+
+本文描述的运行方式就是简单的使用内嵌的servlet容器。
+
+## 第一步
+
+### 下载Moqui框架
+
+如果你还没下载Moqui框架就赶快去下载吧。你需要有一个moqui-\<版本号\>的目录，用来存放最新版本的moqui的war文件以及默认的运行时目录。然后以这个目录为根目录开始我们的教程。
+
+如果你是新下载的，快速的初始化数据并运行吧：
+> **$ ant load**
+> 
+> **$ ant run**
+
+使用浏览器访问 http://localhost:8080/ ，点击界面左下方名称为“John Doe”的按钮登录，然后随便看一下演示环境。
+现在退出系统（命令行界面按快捷键**`<ctrl-c>`**），你已经可以继续下一个步骤了。
+
+### 创建一个组件
+Moqui依照“**`约定/配置优于编码`**”的原则进行组件开发，所以创建组件你所要做的就是创建目录：
+
+> $ cd runtime/component
+
+> $ mkdir tutorial
+
+然后进入这个目录并创建一些后面要用到的标准目录：
+
+> $ cd tutorial
+
+> $ mkdir data
+
+> $ mkdir entity
+
+> $ mkdir screen
+
+> $ mkdir script
+
+> $ mkdir service	
+
+组件创建好了就启动框架吧（使用“**`$ ant run`**”或者其他类似的命令）。
+
+### 添加一个界面
+使用你常用的IDE或者文本编辑器添加一个界面的XML文件，存放于：
+
+_`runtime/component/tutorial/screen/tutorial.xml`_	
+
+现在，制作个超简单的界面，上面只有“"Hello world!”的文本。XML内容如下：
+
+```xml Hello world界面定义
+<screen require-authentication="false">
+	<widgets>
+		<label type="h1" text="Hello world!"/>
+	</widgets>
+</screen>
+```
+
+注意上面的`require-authentication`属性被设置为false。默认的值为true，并且这个界面会被要求授权和鉴权。我们会在后面的安全的章节中讨论可配置的自动识别的构件授权机制。
+
+### 以子界面方式挂载
+为了能让你的界面访问生效，需要将这个界面作为子界面挂载到根界面下某个已存在的界面下。在Moqui框架的界面机制中，访问界面的URL路径以及功能菜单的结构都是基于子界面的层级进行驱动的，所以这种挂载方式将会自动设置这个界面的访问URL路径并添加一个菜单分页。
+
+因为这个入门例子的目标，我们将使用已有的根界面以及运行时目录中界面的头部、尾部等资源。运行时目录中有一个定义了根界面的webroot组件位于：
+
+*`runtime/component/webroot/screen/webroot.xml`*
+
+顺便说下，根界面在Moqui的XML配置文件中通过`webapp-list.webapp.root-screen`元素被指定，你可以为不同的域名配置多个入口的根界面。
+
+为了使子界面层级定义的方式更灵活，入口根界面只有一个基础的HTML头和body，没有头部和尾部的页面内容，所以我们把我们的界面放到“apps”界面下，“apps”界面中已有一个头部的菜单并提供了一些内容。修改apps的界面：
+
+*`runtime/component/webroot/screen/webroot/apps.xml`*	
+
+apps.xml文件中，在subscreens元素下添加一个subscreens-item元素，如下：
+
+```xml 子界面定义1
+<subscreens-item name="tutorial" menu-title="Tutorial" 
+				location="component://tutorial/screen/tutorial.xml"/>
+```
+
+名称（name）属性用于指定URL访问这个页面的路径值，所以你的界面在浏览器上的访问路径为：http://localhost:8080/apps/tutorial 
+
+如果你不想修改已存在的界面文件，但是仍然希望将你的界面作为子界面挂载到其他界面下，你可以通过数据库记录的方式去达到这个目的。类似于（在`entity-facade-xml`中格式化代表实体的元素以及代表字段的元素）：
+
+```xml 子界面定义2
+<SubscreensItem screenLocation=“component://webroot/screen/webroot/apps.xml”
+				subscreenName="tutorial" userGroupId=“ALL_USERS"
+				subscreenLocation=“component://tutorial/screen/tutorial.xml"
+				menuTitle="Tutorial" menuIndex="1" menuInclude="Y"/>
+```
+
+### 初试界面内嵌入内容
+除了使用label节点元素，我们还可以在界面“下”使用HTML文件的方式。首先新建一个简单的HTML文件，放在：*`runtime/component/tutorial/screen/tutorial/hello.html`*
+
+这个HTML文件能包含任何的HTML元素，同时既然界面的父界面又包含了头部/尾部等，这个HTML文件又被包含在这个界面中，我们就可以很简单的这样处理这个HTML了：
+
+```html HTML页面
+<h1>Hello world! (from hello.html file)</h1>
+```
+
+现在就可以在tutorial.xml界面定义中使用`render-mode.text`元素来明确包含这个HTML文件了：
+
+```xml 界面中嵌入HTML
+<screen>
+    <widgets>
+        <label type="h1" text="Hello world!"/>
+        <render-mode>
+            <text type="html" 
+            location="component://tutorial/screen/tutorial/hello.html"/>
+        </render-mode>
+    </widgets>
+</screen>
+```
+
+那么这个render-mode到底是什么东西？Moqui框架的XML界面理念中存有**`平台不可知论`**以及界面可被渲染在各种环境中。源于此，我们不想界面内的任何东西在没有明确清楚的情况下就以某种确定渲染方式去展现。在render-mode下，你可以为不同的渲染模式定义各种子元素，甚至是各种文本模式，如HTML，XML，XSL-FO（*用于格式化XML数据的语言，全称为Extensible Stylesheet Language Formatting Objects 格式化对象的可扩展样式表语言，是W3C参考标准，现在通常叫做XSL*），CSV等。这样的话，一个界面定义就可以被渲染成不同的模式，并且输出的产品也可以按需进行切换。
+这个界面还是按照前面例子的URL路径去访问，只是现在采用的是嵌入HTML页面内容的方式，而不是在界面定义中内联使用一个label元素的方式了。
+
+#### 再试界面子内容方式
+另外种方式展现这个hello.html的内容就是把它作为界面的子内容。
+
+这样的话，这个hello.html文件必须被放置在与这个界面同名的子目录下。例如，放在tutorial.xml文件同级的一个名为tutorial的文件夹下。
+
+现在我们还需要做到如下几点：
+
+- 设置界面的`include-child-content`属性为“true”，用来声明tutorial.xml界面包含了子内容
+- 添加`widgets`下的`subscreens-active`元素，用以确定界面包含子界面或者子内容的位置
+
+完成上述操作，你的界面的XML文件应该如下所示：
+
+```xml 界面中嵌入HTML
+<screen include-child-content="true">
+	<widgets>
+		<label type="h1" text="Hello world!"/>
+		<subscreens-active/>
+	</widgets>
+</screen>
+```
+
+为了能看到这个文件内容，你需要访问另外个URL路径来知会Moqui框架你需要获得tutorial界面下的hello.html文件：http://localhost:8080/apps/tutorial/hello.html

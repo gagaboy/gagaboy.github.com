@@ -1,7 +1,161 @@
 ---
 layout: post
-title: "moquiChap9"
+title: "【原创译文】创建你的第一个组件（2）"
 date: 2014-06-03 10:00:54 +0800
 comments: true
-categories: 
+categories: moqui应用开发系列指南（译）  创建首个组件
 ---
+## 第二步
+### 我的第一个实体
+
+实体是一个基本的扁平列表的数据结构，并且通常为数据库中的一张表。一条实体值等价于数据库表的一行记录。Moqui框架没有使用对象关系映射方式，所以我们要做的就是定义一个实体，然后通过实体门面模式（或者其他的高抽象层级的工具）去写代码操作使用实体。
+
+<!--more-->
+
+我们创建一个包含tutorialId和description两个字段的实体XML文件，并命名为“Tutorial”，位于：
+
+*`runtime/component/tutorial/entity/TutorialEntities.xml`*
+
+内容如下：
+```xml Tutorial 实体定义
+<entities>
+	<entity entity-name="Tutorial" package-name="tutorial">
+		<field name="tutorialId" type="id" is-pk="true"/>
+		<field name="description" type="text-long"/>
+	</entity>
+</entities>
+```
+	
+如果你以开发模式（***dev mode***）运行Moqui框架，实体定义缓存会自动被清理然后创建，所以你无需重启；但是你如果运行产品模式（***production mode***）或者你不想等待（Moqui框架启动并不是很快）那么你就重启吧。
+
+你什么时候去创建表呢？除非你关闭自动创建的特性（在Moqui的XML配置文件中有开关），否则实体门面模式将会在你第一次使用到这个实体的时候检查实体是否存在，不存在即会创建它。
+
+### 添加一些数据
+
+实体门面模式具有从XML文件中读取或者写入数据的功能，这些XML文件中的节点元素需要和实体名对应，同样的属性名和字段名需对应。
+
+我们稍后将创建一个用户界面去录入数据，同时你也可以使用自动界面（Auto Screen）或者使用工具应用中的实体数据交互界面（Entity Data UI）和你新建的实体进行数据操作。数据文件对于以下几种数据来说是很有用的：用于代码运行所需的种子数据、测试数据、验证/展示数据模型如何使用的验证数据。那么，我们就开始动手吧。
+
+创建一个实体门面的XML文件在：*`runtime/component/tutorial/data/TutorialData.xml`*
+
+内容为：
+```xml 种子数据
+	<entity-facade-xml type="seed">
+		<Tutorial tutorialId="TestOne" description="Test one description."/>
+		<Tutorial tutorialId="TestTwo" description="Test two description."/>
+	</entity-facade-xml>
+```
+
+加载数据只要通过“$ ant load”命令即可，或者在“运行Moqui”章节中提及的其他加载方式也可。
+
+### 自动查询表单
+
+在tutorial界面下添加一个子界面的XML定义文件，并将其放到：
+
+*`runtime/component/tutorial/screen/tutorial/FindTutorial.xml`*
+
+```xml 查询表单定义
+<screen require-authentication="anonymous-view">
+	<transition name="findTutorial">
+		<default-response url="."/>
+	</transition>
+ 	<actions>
+		<entity-find entity-name="Tutorial" list="tutorialList">
+			<search-form-inputs/>
+		</entity-find>
+	</actions>
+	<widgets>
+		<form-list name="ListTutorials" list="tutorialList" 
+                	transition="findTutorial">
+			<auto-fields-entity entity-name="Tutorial"
+								field-type="find-display"/>
+		</form-list>
+	</widgets>
+</screen>
+```
+
+这个界面中有几个关键部分：
+
+-	转换 transition 
+转换/跳转指的是界面之间的链接。类似于一个顺序图一样，我们把每个界面当成一个个节点，那么界面中定义的转换/跳转就是“线”一般，从一个节点界面指向另外一个节点界面（或者自己指向自己），并且同时有些跳转还包含调用动作或者服务。
+
+> -	单个转换可以按照条件或者不同的错误结果返回各种响应页面，一切都取决于你的界面设计需求
+
+> -	个别转换会指向当前页面（*比如页面刷新就是这种场景*）
+
+-	查询实体动作 actions.entity-find 
+这里页面渲染时只有一个界面动作：查询实体（entity-find）。
+
+> -		通常使用*entity-find*元素（或者调用Java API使用*EntityFind*对象）时，你需要指定过滤条件，排序字段或者其他查询相关的信息去运行
+
+> -		在这个例子中，我们使用了XML表单内的标准参数去进行实体查询，所以我们可以使用*search-form-inputs*子元素去自动生成处理字段
+
+> -		如果想知道这些参数应该长啥样只要查看浏览器中的HTML代码即可，这些都是基于XML表单定义自动生成的
+
+-	widgets.form-list
+这个例子里面定义的是个真实的表单，指定的是多条记录/行数据的“列表”表单（相对于“单个”表单）
+
+> -		这里的name属性可以为任意值，但是需要XML界面内唯一
+
+> -		注意这里的list属性参照的是动作actions块中的entity-find返回的结果，transition属性参照的是界面定义最上面的transition元素
+	
+> -		既然目标是自动创建一个基于实体定义的表单，我们便给*auto-fields-entity*元素赋值为我们的"Tutorial"实体，设置field-type属性的值为"find-display"选项，表示会创建查询字段在头部并且在表格中生成并显示每条记录。
+
+使用URL路径：http://localhost:8080/apps/tutorial/FindTutorial 进行访问。
+
+### 指定字段
+
+如果不是按照默认的方式去生成description字段，你如何按需指定它的展现方式呢？
+
+要达到这个要求，你只要在form-list元素内添加一个field元素，并且跟在fields-entity元素之后，像这样：
+
+```xml 自定义指定字段
+<form-list name="ListTutorials" list="tutorialList" 
+        transition="findTutorial">
+	<auto-fields-entity entity-name="Tutorial" field-type="find-display"/>
+	<field name="description">
+		<header-field show-order-by="true">
+			<text-find hide-options="true"/>
+		</header-field>
+		<default-field>
+			<display/>
+		</default-field>
+	</field>
+</form-list>
+```
+由于此处在field元素中name属性的值对应的字段在**auto-fields-entity**元素执行时已被创建了，那么这里将会被重写。如果name值不在实体定义中，则会新生成一个额外的字段。这个结果看起来和*auto-fields-entit*y元素自动处理的机制很像，并且这也是你需要清晰明白的。
+
+### 添加一个新建表单
+
+让我们添加一个按钮来弹出一个新建表单，并创建一个转换来处理输入数据操作。
+
+首先在之前创建的界面FindTutorial.xml中添加一个转换，就跟在findTutorial转换之后：
+
+```xml 新建操作的转换定义
+<transition name="createTutorial">
+	<service-call name="create#Tutorial" />
+	<default-response url="." />
+</transition>
+```
+
+这个转换只是调用了`create#Tutorial`服务，然后跳转回了当前界面。
+
+这个`create#Tutorial`服务从哪里来的呢？我们还没定义任何它的实现内容。Moqui框架的服务门面支持一种特殊的无需定义实现的实体增删改查（CrUD）操作的服务。这个服务的名字由两部分组成：**一个动词和一个名词，中间用#隔开**。只要动词为**`create, update, store, 或者delete`**，同时名词是一个有效的实体名称，服务门面就会认为这个服务是个隐式的自动实体服务并会完成预期的操作。这个服务调用是完全基于实体定义和传递的参数。举个例子，如果你使用create动词并传递实体的一个主键字段，服务就会使用这个主键字段，否则服务将会使用实体名称作为序列关键字自动生成主键序列号。
+
+然后我们来添加一个新增表单，当按钮点击时展现一个隐藏的容器界面。在之前创建的FindTutorial界面中，添加容器到widget元素内的form-list元素上面，这样就会在列表表单上展现这个容器：
+
+```xml 新建界面的表单定义
+<container-dialog id="CreateTutorialDialog" button-text="Create Tutorial">
+	<form-single name="CreateTutorial" transition="createTutorial">
+		<auto-fields-entity entity-name="Tutorial" field-type="edit"/>
+		<field name="submitButton">
+			<default-field title="Create">
+			<submit/>
+			</default-field>
+		</field>
+	</form-single>
+</container-dialog>
+```
+
+这个界面定义通过刚才添加的transition来引用，并且使用*auto-fields-entity*元素中值为"edit"的`field-type`元素定义来自动生成编辑字段。最后一个小细节是声明一个按钮去提交表单，这样就可以运行了。尝试着做一下，然后看看列表中的数据是否出现新增的记录。
+
