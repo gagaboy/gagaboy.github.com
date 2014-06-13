@@ -5,19 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>moquiChap9 - 问道</title>
+	<title>【原创译文】创建你的第一个组件（2） - 问道</title>
 	<meta name="author" content="Eric Chang">
 
 	
-	<meta name="description" content="moquiChap9 &lt;-- 上一篇：moquiChap8 下一篇：moquiChap10 --&gt; 分享到：
-QQ空间
-新浪微博
-腾讯微博
-微信
-有道云笔记
-Google+
-Twitter
-Facebook 更多 var jiathis_config={ summary:"", &hellip;">
+	<meta name="description" content="【原创译文】创建你的第一个组件（2） 第二步 我的第一个实体 实体是一个基本的扁平列表的数据结构，并且通常为数据库中的一张表。一条实体值等价于数据库表的一行记录。Moqui框架没有使用对象关系映射方式，所以我们要做的就是定义一个实体，然后通过实体门面模式（或者其他的高抽象层级的工具） &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -63,8 +55,13 @@ Facebook 更多 var jiathis_config={ summary:"", &hellip;">
     <li><a href="/">首页</a></li>
     <li><a href="/blog/categories/moqui">Moqui 准备 (4)</a></li>
     <li><a href="/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi">Moqui 应用开发系列【译】</a></li>
+    <li>
+    	<a href="/blog/categories/moquigai-lan">Moqui概览</a>
+    	<a href="/blog/categories/yun-xing-moqui">运行Moqui</a>
+    	<a href="/blog/categories/chuang-jian-shou-ge-zu-jian">第一个例子</a>
+    </li>
+
     <li><a href="/">Moqui 架构解析（建设中...）</a></li>
-    <li><a href="/blog/archives">存档</a></li>
     <li><a href="http://gagaboy.iteye.com/">关于我</a></li>
 </ul>
 </nav>
@@ -103,8 +100,231 @@ Facebook 更多 var jiathis_config={ summary:"", &hellip;">
 			
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">moquiChap9</h1>
-	<div class="entry-content" itemprop="articleBody">
+	<h1 class="title" itemprop="name">【原创译文】创建你的第一个组件（2）</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>第二步</h2>
+
+<h3>我的第一个实体</h3>
+
+<p>实体是一个基本的扁平列表的数据结构，并且通常为数据库中的一张表。一条实体值等价于数据库表的一行记录。Moqui框架没有使用对象关系映射方式，所以我们要做的就是定义一个实体，然后通过实体门面模式（或者其他的高抽象层级的工具）去写代码操作使用实体。</p>
+
+<!--more-->
+
+
+<p>我们创建一个包含tutorialId和description两个字段的实体XML文件，并命名为“Tutorial”，位于：</p>
+
+<p><em><code>runtime/component/tutorial/entity/TutorialEntities.xml</code></em></p>
+
+<p>内容如下：</p>
+
+<figure class='code'><figcaption><span>Tutorial 实体定义</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;entities&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;entity</span> <span class="na">entity-name=</span><span class="s">&quot;Tutorial&quot;</span> <span class="na">package-name=</span><span class="s">&quot;tutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;tutorialId&quot;</span> <span class="na">type=</span><span class="s">&quot;id&quot;</span> <span class="na">is-pk=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">type=</span><span class="s">&quot;text-long&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/entity&gt;</span>
+</span><span class='line'><span class="nt">&lt;/entities&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你以开发模式（<strong><em>dev mode</em></strong>）运行Moqui框架，实体定义缓存会自动被清理然后创建，所以你无需重启；但是你如果运行产品模式（<strong><em>production mode</em></strong>）或者你不想等待（Moqui框架启动并不是很快）那么你就重启吧。</p>
+
+<p>你什么时候去创建表呢？除非你关闭自动创建的特性（在Moqui的XML配置文件中有开关），否则实体门面模式将会在你第一次使用到这个实体的时候检查实体是否存在，不存在即会创建它。</p>
+
+<h3>添加一些数据</h3>
+
+<p>实体门面模式具有从XML文件中读取或者写入数据的功能，这些XML文件中的节点元素需要和实体名对应，同样的属性名和字段名需对应。</p>
+
+<p>我们稍后将创建一个用户界面去录入数据，同时你也可以使用自动界面（Auto Screen）或者使用工具应用中的实体数据交互界面（Entity Data UI）和你新建的实体进行数据操作。数据文件对于以下几种数据来说是很有用的：用于代码运行所需的种子数据、测试数据、验证/展示数据模型如何使用的验证数据。那么，我们就开始动手吧。</p>
+
+<p>创建一个实体门面的XML文件在：<em><code>runtime/component/tutorial/data/TutorialData.xml</code></em></p>
+
+<p>内容为：</p>
+
+<figure class='code'><figcaption><span>种子数据</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;entity-facade-xml</span> <span class="na">type=</span><span class="s">&quot;seed&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;Tutorial</span> <span class="na">tutorialId=</span><span class="s">&quot;TestOne&quot;</span> <span class="na">description=</span><span class="s">&quot;Test one description.&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;Tutorial</span> <span class="na">tutorialId=</span><span class="s">&quot;TestTwo&quot;</span> <span class="na">description=</span><span class="s">&quot;Test two description.&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/entity-facade-xml&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>加载数据只要通过“$ ant load”命令即可，或者在“运行Moqui”章节中提及的其他加载方式也可。</p>
+
+<h3>自动查询表单</h3>
+
+<p>在tutorial界面下添加一个子界面的XML定义文件，并将其放到：</p>
+
+<p><em><code>runtime/component/tutorial/screen/tutorial/FindTutorial.xml</code></em></p>
+
+<figure class='code'><figcaption><span>查询表单定义</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;screen</span> <span class="na">require-authentication=</span><span class="s">&quot;anonymous-view&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;transition</span> <span class="na">name=</span><span class="s">&quot;findTutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;default-response</span> <span class="na">url=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/transition&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;actions&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;entity-find</span> <span class="na">entity-name=</span><span class="s">&quot;Tutorial&quot;</span> <span class="na">list=</span><span class="s">&quot;tutorialList&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;search-form-inputs/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/entity-find&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/actions&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;widgets&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;form-list</span> <span class="na">name=</span><span class="s">&quot;ListTutorials&quot;</span> <span class="na">list=</span><span class="s">&quot;tutorialList&quot;</span>
+</span><span class='line'>                  <span class="na">transition=</span><span class="s">&quot;findTutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;auto-fields-entity</span> <span class="na">entity-name=</span><span class="s">&quot;Tutorial&quot;</span>
+</span><span class='line'>                              <span class="na">field-type=</span><span class="s">&quot;find-display&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/form-list&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/widgets&gt;</span>
+</span><span class='line'><span class="nt">&lt;/screen&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个界面中有几个关键部分：</p>
+
+<ul>
+<li>转换 transition
+转换/跳转指的是界面之间的链接。类似于一个顺序图一样，我们把每个界面当成一个个节点，那么界面中定义的转换/跳转就是“线”一般，从一个节点界面指向另外一个节点界面（或者自己指向自己），并且同时有些跳转还包含调用动作或者服务。</li>
+</ul>
+
+
+<blockquote><ul>
+<li><p>单个转换可以按照条件或者不同的错误结果返回各种响应页面，一切都取决于你的界面设计需求</p></li>
+<li><p>个别转换会指向当前页面（<em>比如页面刷新就是这种场景</em>）</p></li>
+</ul>
+</blockquote>
+
+<ul>
+<li>查询实体动作 actions.entity-find
+这里页面渲染时只有一个界面动作：查询实体（entity-find）。</li>
+</ul>
+
+
+<blockquote><ul>
+<li><p>  通常使用<em>entity-find</em>元素（或者调用Java API使用<em>EntityFind</em>对象）时，你需要指定过滤条件，排序字段或者其他查询相关的信息去运行</p></li>
+<li><p>  在这个例子中，我们使用了XML表单内的标准参数去进行实体查询，所以我们可以使用<em>search-form-inputs</em>子元素去自动生成处理字段</p></li>
+<li><p>  如果想知道这些参数应该长啥样只要查看浏览器中的HTML代码即可，这些都是基于XML表单定义自动生成的</p></li>
+</ul>
+</blockquote>
+
+<ul>
+<li>widgets.form-list
+这个例子里面定义的是个真实的表单，指定的是多条记录/行数据的“列表”表单（相对于“单个”表单）</li>
+</ul>
+
+
+<blockquote><ul>
+<li><p>  这里的name属性可以为任意值，但是需要XML界面内唯一</p></li>
+<li><p>  注意这里的list属性参照的是动作actions块中的entity-find返回的结果，transition属性参照的是界面定义最上面的transition元素</p></li>
+<li><p>  既然目标是自动创建一个基于实体定义的表单，我们便给<em>auto-fields-entity</em>元素赋值为我们的&#8221;Tutorial&#8221;实体，设置field-type属性的值为&#8221;find-display&#8221;选项，表示会创建查询字段在头部并且在表格中生成并显示每条记录。</p></li>
+</ul>
+</blockquote>
+
+<p>使用URL路径：<a href="http://localhost:8080/apps/tutorial/FindTutorial">http://localhost:8080/apps/tutorial/FindTutorial</a> 进行访问。</p>
+
+<h3>指定字段</h3>
+
+<p>如果不是按照默认的方式去生成description字段，你如何按需指定它的展现方式呢？</p>
+
+<p>要达到这个要求，你只要在form-list元素内添加一个field元素，并且跟在fields-entity元素之后，像这样：</p>
+
+<figure class='code'><figcaption><span>自定义指定字段</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;form-list</span> <span class="na">name=</span><span class="s">&quot;ListTutorials&quot;</span> <span class="na">list=</span><span class="s">&quot;tutorialList&quot;</span>
+</span><span class='line'>        <span class="na">transition=</span><span class="s">&quot;findTutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;auto-fields-entity</span> <span class="na">entity-name=</span><span class="s">&quot;Tutorial&quot;</span> <span class="na">field-type=</span><span class="s">&quot;find-display&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;header-field</span> <span class="na">show-order-by=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;text-find</span> <span class="na">hide-options=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/header-field&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;default-field&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;display/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/default-field&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/field&gt;</span>
+</span><span class='line'><span class="nt">&lt;/form-list&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由于此处在field元素中name属性的值对应的字段在<strong>auto-fields-entity</strong>元素执行时已被创建了，那么这里将会被重写。如果name值不在实体定义中，则会新生成一个额外的字段。这个结果看起来和<em>auto-fields-entit</em>y元素自动处理的机制很像，并且这也是你需要清晰明白的。</p>
+
+<h3>添加一个新建表单</h3>
+
+<p>让我们添加一个按钮来弹出一个新建表单，并创建一个转换来处理输入数据操作。</p>
+
+<p>首先在之前创建的界面FindTutorial.xml中添加一个转换，就跟在findTutorial转换之后：</p>
+
+<figure class='code'><figcaption><span>新建操作的转换定义</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;transition</span> <span class="na">name=</span><span class="s">&quot;createTutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;service-call</span> <span class="na">name=</span><span class="s">&quot;create#Tutorial&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;default-response</span> <span class="na">url=</span><span class="s">&quot;.&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/transition&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个转换只是调用了<code>create#Tutorial</code>服务，然后跳转回了当前界面。</p>
+
+<p>这个<code>create#Tutorial</code>服务从哪里来的呢？我们还没定义任何它的实现内容。Moqui框架的服务门面支持一种特殊的无需定义实现的实体增删改查（CrUD）操作的服务。这个服务的名字由两部分组成：<strong>一个动词和一个名词，中间用#隔开</strong>。只要动词为<strong><code>create, update, store, 或者delete</code></strong>，同时名词是一个有效的实体名称，服务门面就会认为这个服务是个隐式的自动实体服务并会完成预期的操作。这个服务调用是完全基于实体定义和传递的参数。举个例子，如果你使用create动词并传递实体的一个主键字段，服务就会使用这个主键字段，否则服务将会使用实体名称作为序列关键字自动生成主键序列号。</p>
+
+<p>然后我们来添加一个新增表单，当按钮点击时展现一个隐藏的容器界面。在之前创建的FindTutorial界面中，添加容器到widget元素内的form-list元素上面，这样就会在列表表单上展现这个容器：</p>
+
+<figure class='code'><figcaption><span>新建界面的表单定义</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;container-dialog</span> <span class="na">id=</span><span class="s">&quot;CreateTutorialDialog&quot;</span> <span class="na">button-text=</span><span class="s">&quot;Create Tutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;form-single</span> <span class="na">name=</span><span class="s">&quot;CreateTutorial&quot;</span> <span class="na">transition=</span><span class="s">&quot;createTutorial&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;auto-fields-entity</span> <span class="na">entity-name=</span><span class="s">&quot;Tutorial&quot;</span> <span class="na">field-type=</span><span class="s">&quot;edit&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;submitButton&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;default-field</span> <span class="na">title=</span><span class="s">&quot;Create&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;submit/&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/default-field&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/field&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/form-single&gt;</span>
+</span><span class='line'><span class="nt">&lt;/container-dialog&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个界面定义通过刚才添加的transition来引用，并且使用<em>auto-fields-entity</em>元素中值为&#8221;edit&#8221;的<code>field-type</code>元素定义来自动生成编辑字段。最后一个小细节是声明一个按钮去提交表单，这样就可以运行了。尝试着做一下，然后看看列表中的数据是否出现新增的记录。</p>
 </div>
 
 
@@ -113,10 +333,10 @@ Facebook 更多 var jiathis_config={ summary:"", &hellip;">
  	<br>
     <p>
       
-        <a class="basic-alignment left" href="/blog/2014/06/03/moquichap8/" title="Previous Post: moquiChap8">&lt;-- 上一篇：moquiChap8</a>
+        <a class="basic-alignment left" href="/blog/2014/06/03/moquichap8/" title="Previous Post: 【原创译文】创建你的第一个组件（1） ">&lt;-- 上一篇：【原创译文】创建你的第一个组件（1） </a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/06/03/moquichap10/" title="Next Post: moquiChap10">下一篇：moquiChap10 --&gt;</a>
+        <a class="basic-alignment right" href="/blog/2014/06/13/moquichap10/" title="Next Post: 【原创译文】创建你的第一个组件（3）">下一篇：【原创译文】创建你的第一个组件（3） --&gt;</a>
       
     </p>
   </footer>

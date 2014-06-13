@@ -5,19 +5,12 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>moquiChap8 - 问道</title>
+	<title>【原创译文】创建你的第一个组件（1）  - 问道</title>
 	<meta name="author" content="Eric Chang">
 
 	
-	<meta name="description" content="moquiChap8 &lt;-- 上一篇：【原创译文】让Moqui跑起来 — 下一篇：moquiChap9 --&gt; 分享到：
-QQ空间
-新浪微博
-腾讯微博
-微信
-有道云笔记
-Google+
-Twitter
-Facebook 更多 var jiathis_config={ summary &hellip;">
+	<meta name="description" content="【原创译文】创建你的第一个组件（1） 概要 本章是篇教你一步步创建并运行你自己的Moqui组件的向导，包含了人机交互界面，业务逻辑以及数据库交互。 第一步：以创建一个“Hello world！”的界面开始你的第一个组件
+第二步：延续上步，你将会定义一个自己的实体（数据库表）， &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -63,8 +56,13 @@ Facebook 更多 var jiathis_config={ summary &hellip;">
     <li><a href="/">首页</a></li>
     <li><a href="/blog/categories/moqui">Moqui 准备 (4)</a></li>
     <li><a href="/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi">Moqui 应用开发系列【译】</a></li>
+    <li>
+    	<a href="/blog/categories/moquigai-lan">Moqui概览</a>
+    	<a href="/blog/categories/yun-xing-moqui">运行Moqui</a>
+    	<a href="/blog/categories/chuang-jian-shou-ge-zu-jian">第一个例子</a>
+    </li>
+
     <li><a href="/">Moqui 架构解析（建设中...）</a></li>
-    <li><a href="/blog/archives">存档</a></li>
     <li><a href="http://gagaboy.iteye.com/">关于我</a></li>
 </ul>
 </nav>
@@ -103,8 +101,192 @@ Facebook 更多 var jiathis_config={ summary &hellip;">
 			
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-	<h1 class="title" itemprop="name">moquiChap8</h1>
-	<div class="entry-content" itemprop="articleBody">
+	<h1 class="title" itemprop="name">【原创译文】创建你的第一个组件（1）</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>概要</h2>
+
+<p>本章是篇教你一步步创建并运行你自己的Moqui组件的向导，包含了人机交互界面，业务逻辑以及数据库交互。</p>
+
+<ul>
+<li><p>第一步：以创建一个“Hello world！”的界面开始你的第一个组件</p></li>
+<li><p>第二步：延续上步，你将会定义一个自己的实体（数据库表），然后添加表单去查询和创建实体的记录</p></li>
+<li><p>第三步：创建一些自定义的业务逻辑，而不使用框架自带的默认基于实体定义的CrUD逻辑操作</p></li>
+</ul>
+
+
+<!--more-->
+
+
+<p>本文描述的运行方式就是简单的使用内嵌的servlet容器。</p>
+
+<h2>第一步</h2>
+
+<h3>下载Moqui框架</h3>
+
+<p>如果你还没下载Moqui框架就赶快去下载吧。你需要有一个moqui-&lt;版本号>的目录，用来存放最新版本的moqui的war文件以及默认的运行时目录。然后以这个目录为根目录开始我们的教程。</p>
+
+<p>如果你是新下载的，快速的初始化数据并运行吧：</p>
+
+<blockquote><p><strong>$ ant load</strong></p>
+
+<p><strong>$ ant run</strong></p></blockquote>
+
+<p>使用浏览器访问 <a href="http://localhost:8080/">http://localhost:8080/</a> ，点击界面左下方名称为“John Doe”的按钮登录，然后随便看一下演示环境。
+现在退出系统（命令行界面按快捷键<strong><code>&lt;ctrl-c&gt;</code></strong>），你已经可以继续下一个步骤了。</p>
+
+<h3>创建一个组件</h3>
+
+<p>Moqui依照“<strong><code>约定/配置优于编码</code></strong>”的原则进行组件开发，所以创建组件你所要做的就是创建目录：</p>
+
+<blockquote><p>$ cd runtime/component</p>
+
+<p>$ mkdir tutorial</p></blockquote>
+
+<p>然后进入这个目录并创建一些后面要用到的标准目录：</p>
+
+<blockquote><p>$ cd tutorial</p>
+
+<p>$ mkdir data</p>
+
+<p>$ mkdir entity</p>
+
+<p>$ mkdir screen</p>
+
+<p>$ mkdir script</p>
+
+<p>$ mkdir service</p></blockquote>
+
+<p>组件创建好了就启动框架吧（使用“<strong><code>$ ant run</code></strong>”或者其他类似的命令）。</p>
+
+<h3>添加一个界面</h3>
+
+<p>使用你常用的IDE或者文本编辑器添加一个界面的XML文件，存放于：</p>
+
+<p><em><code>runtime/component/tutorial/screen/tutorial.xml</code></em></p>
+
+<p>现在，制作个超简单的界面，上面只有“&#8221;Hello world!”的文本。XML内容如下：</p>
+
+<figure class='code'><figcaption><span>Hello world界面定义</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;screen</span> <span class="na">require-authentication=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;widgets&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label</span> <span class="na">type=</span><span class="s">&quot;h1&quot;</span> <span class="na">text=</span><span class="s">&quot;Hello world!&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/widgets&gt;</span>
+</span><span class='line'><span class="nt">&lt;/screen&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意上面的<code>require-authentication</code>属性被设置为false。默认的值为true，并且这个界面会被要求授权和鉴权。我们会在后面的安全的章节中讨论可配置的自动识别的构件授权机制。</p>
+
+<h3>以子界面方式挂载</h3>
+
+<p>为了能让你的界面访问生效，需要将这个界面作为子界面挂载到根界面下某个已存在的界面下。在Moqui框架的界面机制中，访问界面的URL路径以及功能菜单的结构都是基于子界面的层级进行驱动的，所以这种挂载方式将会自动设置这个界面的访问URL路径并添加一个菜单分页。</p>
+
+<p>因为这个入门例子的目标，我们将使用已有的根界面以及运行时目录中界面的头部、尾部等资源。运行时目录中有一个定义了根界面的webroot组件位于：</p>
+
+<p><em><code>runtime/component/webroot/screen/webroot.xml</code></em></p>
+
+<p>顺便说下，根界面在Moqui的XML配置文件中通过<code>webapp-list.webapp.root-screen</code>元素被指定，你可以为不同的域名配置多个入口的根界面。</p>
+
+<p>为了使子界面层级定义的方式更灵活，入口根界面只有一个基础的HTML头和body，没有头部和尾部的页面内容，所以我们把我们的界面放到“apps”界面下，“apps”界面中已有一个头部的菜单并提供了一些内容。修改apps的界面：</p>
+
+<p><em><code>runtime/component/webroot/screen/webroot/apps.xml</code></em></p>
+
+<p>apps.xml文件中，在subscreens元素下添加一个subscreens-item元素，如下：</p>
+
+<figure class='code'><figcaption><span>子界面定义1</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;subscreens-item</span> <span class="na">name=</span><span class="s">&quot;tutorial&quot;</span> <span class="na">menu-title=</span><span class="s">&quot;Tutorial&quot;</span>
+</span><span class='line'>              <span class="na">location=</span><span class="s">&quot;component://tutorial/screen/tutorial.xml&quot;</span><span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>名称（name）属性用于指定URL访问这个页面的路径值，所以你的界面在浏览器上的访问路径为：<a href="http://localhost:8080/apps/tutorial">http://localhost:8080/apps/tutorial</a></p>
+
+<p>如果你不想修改已存在的界面文件，但是仍然希望将你的界面作为子界面挂载到其他界面下，你可以通过数据库记录的方式去达到这个目的。类似于（在<code>entity-facade-xml</code>中格式化代表实体的元素以及代表字段的元素）：</p>
+
+<figure class='code'><figcaption><span>子界面定义2</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;SubscreensItem</span> <span class="na">screenLocation=</span><span class="s">“component://webroot/screen/webroot/apps.xml”</span>
+</span><span class='line'>              <span class="na">subscreenName=</span><span class="s">&quot;tutorial&quot;</span> <span class="na">userGroupId=</span><span class="s">“ALL_USERS&quot;</span>
+</span><span class='line'>              <span class="na">subscreenLocation=</span><span class="s">“component://tutorial/screen/tutorial.xml&quot;</span>
+</span><span class='line'>              <span class="na">menuTitle=</span><span class="s">&quot;Tutorial&quot;</span> <span class="na">menuIndex=</span><span class="s">&quot;1&quot;</span> <span class="na">menuInclude=</span><span class="s">&quot;Y&quot;</span><span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>初试界面内嵌入内容</h3>
+
+<p>除了使用label节点元素，我们还可以在界面“下”使用HTML文件的方式。首先新建一个简单的HTML文件，放在：<em><code>runtime/component/tutorial/screen/tutorial/hello.html</code></em></p>
+
+<p>这个HTML文件能包含任何的HTML元素，同时既然界面的父界面又包含了头部/尾部等，这个HTML文件又被包含在这个界面中，我们就可以很简单的这样处理这个HTML了：</p>
+
+<figure class='code'><figcaption><span>HTML页面</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;h1&gt;</span>Hello world! (from hello.html file)<span class="nt">&lt;/h1&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在就可以在tutorial.xml界面定义中使用<code>render-mode.text</code>元素来明确包含这个HTML文件了：</p>
+
+<figure class='code'><figcaption><span>界面中嵌入HTML</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;screen&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;widgets&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;label</span> <span class="na">type=</span><span class="s">&quot;h1&quot;</span> <span class="na">text=</span><span class="s">&quot;Hello world!&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;render-mode&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;html&quot;</span>
+</span><span class='line'>            <span class="na">location=</span><span class="s">&quot;component://tutorial/screen/tutorial/hello.html&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/render-mode&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/widgets&gt;</span>
+</span><span class='line'><span class="nt">&lt;/screen&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那么这个render-mode到底是什么东西？Moqui框架的XML界面理念中存有<strong><code>平台不可知论</code></strong>以及界面可被渲染在各种环境中。源于此，我们不想界面内的任何东西在没有明确清楚的情况下就以某种确定渲染方式去展现。在render-mode下，你可以为不同的渲染模式定义各种子元素，甚至是各种文本模式，如HTML，XML，XSL-FO（<em>用于格式化XML数据的语言，全称为Extensible Stylesheet Language Formatting Objects 格式化对象的可扩展样式表语言，是W3C参考标准，现在通常叫做XSL</em>），CSV等。这样的话，一个界面定义就可以被渲染成不同的模式，并且输出的产品也可以按需进行切换。
+这个界面还是按照前面例子的URL路径去访问，只是现在采用的是嵌入HTML页面内容的方式，而不是在界面定义中内联使用一个label元素的方式了。</p>
+
+<h4>再试界面子内容方式</h4>
+
+<p>另外种方式展现这个hello.html的内容就是把它作为界面的子内容。</p>
+
+<p>这样的话，这个hello.html文件必须被放置在与这个界面同名的子目录下。例如，放在tutorial.xml文件同级的一个名为tutorial的文件夹下。</p>
+
+<p>现在我们还需要做到如下几点：</p>
+
+<ul>
+<li>设置界面的<code>include-child-content</code>属性为“true”，用来声明tutorial.xml界面包含了子内容</li>
+<li>添加<code>widgets</code>下的<code>subscreens-active</code>元素，用以确定界面包含子界面或者子内容的位置</li>
+</ul>
+
+
+<p>完成上述操作，你的界面的XML文件应该如下所示：</p>
+
+<figure class='code'><figcaption><span>界面中嵌入HTML</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;screen</span> <span class="na">include-child-content=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;widgets&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label</span> <span class="na">type=</span><span class="s">&quot;h1&quot;</span> <span class="na">text=</span><span class="s">&quot;Hello world!&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;subscreens-active/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/widgets&gt;</span>
+</span><span class='line'><span class="nt">&lt;/screen&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>为了能看到这个文件内容，你需要访问另外个URL路径来知会Moqui框架你需要获得tutorial界面下的hello.html文件：<a href="http://localhost:8080/apps/tutorial/hello.html">http://localhost:8080/apps/tutorial/hello.html</a></p>
 </div>
 
 
@@ -113,10 +295,10 @@ Facebook 更多 var jiathis_config={ summary &hellip;">
  	<br>
     <p>
       
-        <a class="basic-alignment left" href="/blog/2014/06/03/moquichap7/" title="Previous Post: 【原创译文】让Moqui跑起来 —  ">&lt;-- 上一篇：【原创译文】让Moqui跑起来 —  </a>
+        <a class="basic-alignment left" href="/blog/2014/06/03/moquichap7/" title="Previous Post: 【原创译文】运行Moqui  ">&lt;-- 上一篇：【原创译文】运行Moqui  </a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/06/03/moquichap9/" title="Next Post: moquiChap9">下一篇：moquiChap9 --&gt;</a>
+        <a class="basic-alignment right" href="/blog/2014/06/03/moquichap9/" title="Next Post: 【原创译文】创建你的第一个组件（2）">下一篇：【原创译文】创建你的第一个组件（2） --&gt;</a>
       
     </p>
   </footer>

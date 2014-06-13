@@ -9,7 +9,7 @@
 	<meta name="author" content="Eric Chang">
 
 	
-	<meta name="description" content="Jun 3rd, 2014 moquiChap11 Jun 3rd, 2014 moquiChap10 Jun 3rd, 2014 moquiChap9 Jun 3rd, 2014 moquiChap8 Jun 3rd, 2014 moqui应用开发系列指南（译）, 让Moqui跑起来 【 &hellip;">
+	<meta name="description" content="Jun 13th, 2014 moqui应用开发系列指南（译）, 创建首个组件 【原创译文】创建你的第一个组件（3） 第三步 自定义新增服务 上面的例子里，createTutorial转换使用了隐式的自动实体服务create#Tutorial。我们来看下如何手动的定义和实现一个服务。 &hellip;">
 	<meta name="keywords" content="java,groovy,moqui">
 
   <!-- http://t.co/dKP3o1e -->
@@ -55,8 +55,13 @@
     <li><a href="/">首页</a></li>
     <li><a href="/blog/categories/moqui">Moqui 准备 (4)</a></li>
     <li><a href="/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi">Moqui 应用开发系列【译】</a></li>
+    <li>
+    	<a href="/blog/categories/moquigai-lan">Moqui概览</a>
+    	<a href="/blog/categories/yun-xing-moqui">运行Moqui</a>
+    	<a href="/blog/categories/chuang-jian-shou-ge-zu-jian">第一个例子</a>
+    </li>
+
     <li><a href="/">Moqui 架构解析（建设中...）</a></li>
-    <li><a href="/blog/archives">存档</a></li>
     <li><a href="http://gagaboy.iteye.com/">关于我</a></li>
 </ul>
 </nav>
@@ -112,49 +117,30 @@
   
 
 
-<time datetime="2014-06-03T10:05:30+08:00" data-updated="true" itemprop="datePublished">Jun 3<span>rd</span>, 2014</time></div>
+<time datetime="2014-06-13T22:10:03+08:00" data-updated="true" itemprop="datePublished">Jun 13<span>th</span>, 2014</time></div>
 		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/'>moqui应用开发系列指南（译）</a>, <a class='category' href='/blog/categories/chuang-jian-shou-ge-zu-jian/'>创建首个组件</a>
+
 
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap11/" itemprop="url">moquiChap11</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/06/13/moquichap10/" itemprop="url">【原创译文】创建你的第一个组件（3）</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		
+		<h2>第三步</h2>
 
-		
-		
-	</div>
+<h3>自定义新增服务</h3>
 
-</article>
+<p>上面的例子里，createTutorial转换使用了隐式的自动实体服务create#Tutorial。我们来看下如何手动的定义和实现一个服务。</p>
 
+<p>首先定义一个服务使用默认的自动实体增删改查（<strong><code>CrUD</code></strong>）实现。将服务定义XML文件放在下面的位置：
+<em><code>runtime/component/tutorial/service/tutorial/TutorialServices.xml</code></em></p>
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-03T10:01:38+08:00" data-updated="true" itemprop="datePublished">Jun 3<span>rd</span>, 2014</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap10/" itemprop="url">moquiChap10</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		
 
 		
-		
+		<a href="/blog/2014/06/13/moquichap10/" class="more-link">阅读全文 &rarr;</a>
 	</div>
 
 </article>
@@ -177,15 +163,24 @@
 <time datetime="2014-06-03T10:00:54+08:00" data-updated="true" itemprop="datePublished">Jun 3<span>rd</span>, 2014</time></div>
 		<div class="tags">
 
+
+	<a class='category' href='/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/'>moqui应用开发系列指南（译）</a>, <a class='category' href='/blog/categories/chuang-jian-shou-ge-zu-jian/'>创建首个组件</a>
+
+
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap9/" itemprop="url">moquiChap9</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap9/" itemprop="url">【原创译文】创建你的第一个组件（2）</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		
+		<h2>第二步</h2>
+
+<h3>我的第一个实体</h3>
+
+<p>实体是一个基本的扁平列表的数据结构，并且通常为数据库中的一张表。一条实体值等价于数据库表的一行记录。Moqui框架没有使用对象关系映射方式，所以我们要做的就是定义一个实体，然后通过实体门面模式（或者其他的高抽象层级的工具）去写代码操作使用实体。</p>
+
 
 		
-		
+		<a href="/blog/2014/06/03/moquichap9/" class="more-link">阅读全文 &rarr;</a>
 	</div>
 
 </article>
@@ -208,15 +203,29 @@
 <time datetime="2014-06-03T09:59:13+08:00" data-updated="true" itemprop="datePublished">Jun 3<span>rd</span>, 2014</time></div>
 		<div class="tags">
 
+
+	<a class='category' href='/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/'>moqui应用开发系列指南（译）</a>, <a class='category' href='/blog/categories/chuang-jian-shou-ge-zu-jian/'>创建首个组件</a>
+
+
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap8/" itemprop="url">moquiChap8</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap8/" itemprop="url">【原创译文】创建你的第一个组件（1）</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		
+		<h2>概要</h2>
+
+<p>本章是篇教你一步步创建并运行你自己的Moqui组件的向导，包含了人机交互界面，业务逻辑以及数据库交互。</p>
+
+<ul>
+<li><p>第一步：以创建一个“Hello world！”的界面开始你的第一个组件</p></li>
+<li><p>第二步：延续上步，你将会定义一个自己的实体（数据库表），然后添加表单去查询和创建实体的记录</p></li>
+<li><p>第三步：创建一些自定义的业务逻辑，而不使用框架自带的默认基于实体定义的CrUD逻辑操作</p></li>
+</ul>
+
+
 
 		
-		
+		<a href="/blog/2014/06/03/moquichap8/" class="more-link">阅读全文 &rarr;</a>
 	</div>
 
 </article>
@@ -240,18 +249,63 @@
 		<div class="tags">
 
 
-	<a class='category' href='/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/'>moqui应用开发系列指南（译）</a>, <a class='category' href='/blog/categories/rang-moquipao-qi-lai/'>让Moqui跑起来</a>
+	<a class='category' href='/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/'>moqui应用开发系列指南（译）</a>, <a class='category' href='/blog/categories/yun-xing-moqui/'>运行Moqui</a>
 
 
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap7/" itemprop="url">【原创译文】让Moqui跑起来 —</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap7/" itemprop="url">【原创译文】运行Moqui</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		
+		<h2>下载Moqui以及必备软件</h2>
+
+<p>Moqui框架默认的配置软件只需要Java的JDK 6及以后版本（推荐JDK 7）。源码构建编译框架需要Gradle 1.6及以后版本。</p>
+
+<p>你可以从SourceForge下载Moqui框架：</p>
+
+<p><a href="https://sourceforge.net/projects/moqui/files/">https://sourceforge.net/projects/moqui/files/</a></p>
+
 
 		
+		<a href="/blog/2014/06/03/moquichap7/" class="more-link">阅读全文 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-03T09:55:16+08:00" data-updated="true" itemprop="datePublished">Jun 3<span>rd</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/moquigai-lan/'>Moqui概览</a>, <a class='category' href='/blog/categories/moquiying-yong-kai-fa-xi-lie-zhi-nan-yi/'>moqui应用开发系列指南（译）</a>
+
+
+</div>
 		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/06/03/moquichap6/" itemprop="url">【原创译文】Moqui 概览 — 纵览</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>Web浏览器请求</h2>
+
+<p>一个web浏览器请求经由Servlet容器会传递到框架层面（默认实现是内嵌了Winstone Servlet容器，同样也支持Tomcat以及其他的Java Servlet规范容器）。Servlet容器通过web.xml文件按照标准的方式在服务器上找到安装的MoquiServlet，并查找到相应的请求路径。MoquiServlet很简单，仅仅设置了一个运行时上下文，然后渲染请求的界面。</p>
+
+
+		
+		<a href="/blog/2014/06/03/moquichap6/" class="more-link">阅读全文 &rarr;</a>
 	</div>
 
 </article>
