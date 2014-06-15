@@ -101,7 +101,7 @@ disqus_show_comment_count: false
 post_license: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: zhangzy2402@gmail.com
 
 # Facebook Like
 facebook_like: false
